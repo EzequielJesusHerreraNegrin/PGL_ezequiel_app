@@ -1,12 +1,17 @@
-import { Stack } from 'expo-router'
+import { Slot, Stack } from 'expo-router'
 import React from 'react'
+import { StyleSheet } from 'react-native'
 
-const StackLayout = () => {
+export const AppLayout = () => {
   return (
-    <Stack>
-        <Stack.Screen name="(tabs)"/>
-    </Stack>
+    <Slot />
   )
 }
 
-export default StackLayout
+const style = StyleSheet.create({
+  stackHeader:{
+    alignItems: "center"
+  }
+})
+
+export default AppLayout
