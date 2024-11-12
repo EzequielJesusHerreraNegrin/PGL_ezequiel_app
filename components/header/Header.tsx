@@ -12,7 +12,7 @@ const Header = () => {
         </Link>
         <Image
           style={styles.avatar}
-          source={require("../assets/mySelfHeader.jpeg")}
+          source={require("../../assets/mySelfHeader.jpeg")}
         ></Image>
       </View>
       <View style={styles.infoItemInfo}>
@@ -51,8 +51,7 @@ const styles = StyleSheet.create({
     fontSize: 20,
   },
   headerBox: {
-    height: "55%",
-    backgroundColor: "#efeba9",
+    backgroundColor: "#b6f542",
     flexDirection: "column",
     alignItems: "center",
     paddingTop: 30,

@@ -1,12 +1,20 @@
-import React from 'react'
-import { View, Text } from 'react-native'
+import React from "react";
+import Hobbies from "../../../components/hobbies/Hobbies";
+import { View, StyleSheet } from "react-native";
 
-const samplePage = () => {
+const hobbiesPage = () => {
   return (
-    <View>
-        <Text>Página 1 dentro de Tabs</Text>
+    <View style={styles.hobbiesBox}>
+      <Hobbies />
     </View>
-  )
-}
+  );
+};
 
-export default samplePage
+const styles = StyleSheet.create({
+  hobbiesBox: {
+    width: "100%",
+    height: "100%",
+  },
+});
+
+export default hobbiesPage;

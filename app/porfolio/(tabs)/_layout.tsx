@@ -1,7 +1,7 @@
 import { Tabs } from "expo-router";
 import React from "react";
 import { StyleSheet } from "react-native";
-import Header from "../../../components/Header";
+import Header from "../../../components/header/Header";
 import Entypo from "@expo/vector-icons/Entypo";
 
 export const tabsLayout = () => {
@@ -41,7 +41,10 @@ const styles = StyleSheet.create({
     fontSize: 30,
   },
   tabBar: {
-    backgroundColor: "#efeba9",
+    backgroundColor: "#b6f542",
+  },
+  tabScreen: {
+    flex: 12,
   },
 });
 
