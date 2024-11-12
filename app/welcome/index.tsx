@@ -1,8 +1,8 @@
 import { Link } from 'expo-router'
 import React from 'react'
-import { Text, View, StyleSheet, Pressable, Image } from 'react-native'
+import { Text, View, StyleSheet, Image } from 'react-native'
 
-function Welcome() {
+function WelcomePage() {
   return (
     <View style={styleSheet.container}>
       <View style={styleSheet.headerBox}>
@@ -10,9 +10,9 @@ function Welcome() {
       </View>
       <View style={styleSheet.bodyBox}>
         <View>
-          <Image src='assets\MySelf.jpeg'/>
+          <Image source={require('../../assets/mySelf.png')} style={styleSheet.imageStyle}/>
         </View>
-        <Link href="/samplePage">AQUI</Link>
+        <Link href="/porfolio">NAVEGAR</Link>
       </View>
     </View>
   )
@@ -25,19 +25,22 @@ const styleSheet = StyleSheet. create({
     alignItems: 'center',
     height: "100%",
     width: "100%",
-    backgroundColor: "red",
   },
   headerBox:{
-    backgroundColor: "blue",
-    flex: 2
+    flex: 1,
+    top: 50
   },
   bodyBox: {
-    backgroundColor: "green",
-    flex: 5
+    flexDirection: "column",
+    flex: 5,
+    gap: 150,
+    alignItems: "center"
   },
   imageStyle:{
-    
+    width: 300,
+    height: 300,
+    borderRadius: 900
   }
 })
 
-export default Welcome
+export default WelcomePage

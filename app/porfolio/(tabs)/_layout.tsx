@@ -1,11 +1,13 @@
 import { Tabs } from "expo-router";
 import React from "react";
 
-export default () => {
+export const tabsLayout = () => {
   return (
-  <Tabs>
-    <Tabs.Screen name="samplePage" />
-    <Tabs.Screen name="samplePageB" />
-  </Tabs> 
-)
+    <Tabs screenOptions={{ headerShown: false }}>
+      <Tabs.Screen name="samplePage" />
+      <Tabs.Screen name="samplePageB" />
+    </Tabs>
+  );
 };
+
+export default tabsLayout;
