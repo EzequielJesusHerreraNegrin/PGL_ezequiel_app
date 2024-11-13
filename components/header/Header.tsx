@@ -8,7 +8,7 @@ const Header = () => {
     <View style={styles.headerBox}>
       <View style={{ flexDirection: "row" }}>
         <Link href={"/"} style={styles.homeLink}>
-          <Entypo style={{ fontSize: 30 }} name="home" />
+          <Entypo style={{ fontSize: 30, color: "#8C867B" }} name="home" />
         </Link>
         <Image
           style={styles.avatar}
@@ -31,7 +31,10 @@ const styles = StyleSheet.create({
     marginTop: 25,
     marginBottom: 27,
     marginRight: 50,
+    paddingLeft: 5,
     backgroundColor: "#FFF",
+    borderWidth: 2,
+    borderColor: "#D1D1D1",
     borderRadius: 5,
   },
   avatar: {
