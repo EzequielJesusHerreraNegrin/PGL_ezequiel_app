@@ -6,6 +6,4 @@ function AppPage() {
   return <Redirect href="/welcome"></Redirect>;
 }
 
-const styleSheet = StyleSheet.create({});
-
 export default AppPage;

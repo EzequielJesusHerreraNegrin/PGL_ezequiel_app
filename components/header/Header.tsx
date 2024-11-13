@@ -17,7 +17,7 @@ const Header = () => {
       </View>
       <View style={styles.infoItemInfo}>
         <Text style={styles.infoItemTitle}>Ezequiel Jesús</Text>
-        <Text>
+        <Text style={styles.infoItemText}>
           Soy estudiante de Salesianos La Cuesta y en verano trabajo de Bombero
           forestal.
         </Text>
@@ -29,12 +29,18 @@ const Header = () => {
 const styles = StyleSheet.create({
   homeLink: {
     marginTop: 25,
+    marginBottom: 27,
     marginRight: 50,
+    backgroundColor: "#FFF",
+    borderRadius: 5,
   },
   avatar: {
     height: 90,
     width: 90,
     borderRadius: 100,
+    borderColor: "#FFF",
+    borderStyle: "solid",
+    borderWidth: 2,
     marginRight: 80,
   },
   infoItemInfo: {
@@ -44,14 +50,17 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     width: "90%",
   },
+  infoItemText: {
+    color: "#FFF",
+  },
   infoItemTitle: {
-    color: "#000",
+    color: "#FFF",
     textAlign: "center",
     fontWeight: "700",
     fontSize: 20,
   },
   headerBox: {
-    backgroundColor: "#b6f542",
+    backgroundColor: "#004080",
     flexDirection: "column",
     alignItems: "center",
     paddingTop: 30,
