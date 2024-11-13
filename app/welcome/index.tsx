@@ -7,7 +7,7 @@ function WelcomePage() {
     <ImageBackground source={require("../../assets/beachGif.gif")}>
       <View style={styleSheet.container}>
         <View style={styleSheet.headerBox}>
-          <Text style={styleSheet.headerTitle}>Bienbenido a mi App</Text>
+          <Text style={styleSheet.headerTitle}>Bienvenido a mi App</Text>
         </View>
         <View style={styleSheet.bodyBox}>
           <View>

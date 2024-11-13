@@ -1,6 +1,6 @@
-import { Link, Redirect } from "expo-router";
+import { Redirect } from "expo-router";
 import React from "react";
-import { Text, View, StyleSheet, Image } from "react-native";
+import { StyleSheet } from "react-native";
 
 function AppPage() {
   return <Redirect href="/welcome"></Redirect>;

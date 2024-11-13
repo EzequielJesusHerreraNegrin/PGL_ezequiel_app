@@ -1,10 +1,11 @@
 import React from "react";
 import { View, Text } from "react-native";
+import QRdisplay from "../../../components/qrDisplay/QRDisplay";
 
 const samplePage = () => {
   return (
     <View>
-      <Text>Página 2 dentro de Tabs</Text>
+      <QRdisplay />
     </View>
   );
 };

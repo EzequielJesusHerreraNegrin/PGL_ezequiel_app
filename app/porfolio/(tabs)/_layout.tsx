@@ -24,7 +24,7 @@ export const tabsLayout = () => {
         }}
       />
       <Tabs.Screen
-        name="samplePageB"
+        name="qrPage"
         options={{
           title: "Repo",
           tabBarIcon: ({ color }) => (
