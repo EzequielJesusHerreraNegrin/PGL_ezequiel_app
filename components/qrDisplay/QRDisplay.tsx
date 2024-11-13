@@ -1,5 +1,5 @@
 import React from "react";
-import { StyleSheet, View, Image, ImageBackground } from "react-native";
+import { StyleSheet, View, ImageBackground } from "react-native";
 import QRCode from "react-native-qrcode-svg";
 
 const QRdisplay = () => {
@@ -36,8 +36,9 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   ImageBackground: {
-    width: 385,
-    height: 675,
+    width: "100%",
+    height: "150%",
+    resizeMode: "cover",
   },
 });
 

@@ -41,7 +41,7 @@ const styles = StyleSheet.create({
     fontSize: 30,
   },
   tabBar: {
-    backgroundColor: "#b6f542",
+    backgroundColor: "#8CD3F5",
   },
   tabScreen: {
     flex: 12,
