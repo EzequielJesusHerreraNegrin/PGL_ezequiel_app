@@ -33,15 +33,27 @@ const meatItems: foodItem[] = [
   },
   {
     image: "42",
-    name: "Ternera en cubos 200",
+    name: "Ternera en cubos 200grs",
     section: "4",
     price: 12,
   },
   {
-    image: "42",
-    name: "Ternera en cubos 200",
+    image: "43",
+    name: "Cerdo 300grs",
     section: "4",
-    price: 12,
+    price: 4.5,
+  },
+  {
+    image: "44",
+    name: "Pechugas de Pocho campero 300grs",
+    section: "4",
+    price: 4.5,
+  },
+  {
+    image: "45",
+    name: "Carne de Vacuno triturada 300grs",
+    section: "4",
+    price: 5.5,
   },
 ];
 const seaItems: foodItem[] = [
