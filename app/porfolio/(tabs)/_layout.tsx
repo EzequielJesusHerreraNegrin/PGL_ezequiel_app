@@ -18,6 +18,15 @@ export const tabsLayout = () => {
       }}
     >
       <Tabs.Screen
+        name="hobbiesPage"
+        options={{
+          title: "Hobbies",
+          tabBarIcon: ({ color }) => (
+            <Entypo name="list" style={styles.tabIcon} color={color} />
+          ),
+        }}
+      />
+      <Tabs.Screen
         name="foodstore"
         options={{
           title: "Store",
@@ -27,15 +36,6 @@ export const tabsLayout = () => {
               style={styles.tabIcon}
               color={color}
             />
-          ),
-        }}
-      />
-      <Tabs.Screen
-        name="hobbiesPage"
-        options={{
-          title: "Hobbies",
-          tabBarIcon: ({ color }) => (
-            <Entypo name="list" style={styles.tabIcon} color={color} />
           ),
         }}
       />
