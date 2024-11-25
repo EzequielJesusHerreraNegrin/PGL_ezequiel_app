@@ -27,19 +27,6 @@ export const tabsLayout = () => {
         }}
       />
       <Tabs.Screen
-        name="foodstore"
-        options={{
-          title: "Store",
-          tabBarIcon: ({ color }) => (
-            <Entypo
-              name="shopping-basket"
-              style={styles.tabIcon}
-              color={color}
-            />
-          ),
-        }}
-      />
-      <Tabs.Screen
         name="qrPage"
         options={{
           title: "Repo",
