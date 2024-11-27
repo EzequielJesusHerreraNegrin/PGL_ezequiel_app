@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Text, View, Image } from "react-native";
+import { Text, View, Image, StyleSheet, Pressable } from "react-native";
 import { foodItem } from "../../types/AppTypes";
 import FoodList from "../../components/store/FoodList";
 import { Float } from "react-native/Libraries/Types/CodegenTypes";
@@ -34,9 +34,23 @@ const foodStore = () => {
 
   return (
     <View>
-      <Text>LISTA DE LA COMPRA</Text>
-      <View>
-        <Text>Total Price: {basketPrice}€</Text>
+      <View style={styles.header}>
+        <View style={styles.titleBox}>
+          <Text>LISTA DE LA COMPRA</Text>
+        </View>
+        <View style={styles.headerOptionsBox}>
+          <View style={styles.priceDisplayBox}>
+            <Text>Total Price: {basketPrice}€</Text>
+          </View>
+          <View style={styles.butttonBox}>
+            <Pressable style={styles.buttom}>
+              <Text style={styles.buttonText}>Add</Text>
+            </Pressable>
+            <Pressable style={styles.buttom}>
+              <Text style={styles.buttonText}>Clean</Text>
+            </Pressable>
+          </View>
+        </View>
       </View>
       <View>
         <FoodList
@@ -49,6 +63,45 @@ const foodStore = () => {
     </View>
   );
 };
+
+const styles = StyleSheet.create({
+  header: {
+    display: "flex",
+    flexDirection: "column",
+    textAlign: "center",
+    paddingTop: 10,
+    paddingBottom: 10,
+    gap: 5,
+    backgroundColor: "cyan",
+    //justifyContent: "center",
+    //alignContent: "center",
+    alignItems: "center",
+  },
+  titleBox: {},
+  priceDisplayBox: {
+    justifyContent: "center",
+  },
+  buttom: {
+    width: 50,
+    height: 50,
+    backgroundColor: "yellow",
+    borderRadius: 10,
+    borderColor: "black",
+    borderWidth: 1,
+  },
+  buttonText: {
+    margin: "auto",
+    textAlign: "center",
+  },
+  butttonBox: {
+    flexDirection: "row",
+    gap: 10,
+  },
+  headerOptionsBox: {
+    flexDirection: "row",
+    gap: 100,
+  },
+});
 
 export default foodStore;
 
