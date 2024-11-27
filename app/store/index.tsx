@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Text, View, Image } from "react-native";
 import { foodItem } from "../../types/AppTypes";
 import FoodList from "../../components/store/FoodList";
+import { Float } from "react-native/Libraries/Types/CodegenTypes";
 
 const foodStore = () => {
   let items: foodItem[] = [
@@ -9,14 +10,14 @@ const foodStore = () => {
       id: 0,
       image: "1",
       name: "Hola",
-      price: 20.56,
+      price: 12.56,
       section: "Carne",
     },
     {
       id: 1,
       image: "3",
       name: "Chuleta de Cerdo",
-      price: 20.56,
+      price: 35.56,
       section: "otro",
     },
     {
@@ -29,12 +30,21 @@ const foodStore = () => {
   ];
 
   let [foodList, setFoodList] = useState<foodItem[] | []>(items);
+  let [basketPrice, setBasketPrice] = useState<Float>(0);
 
   return (
     <View>
       <Text>LISTA DE LA COMPRA</Text>
       <View>
-        <FoodList foodList={foodList} setFoodList={setFoodList}></FoodList>
+        <Text>Total Price: {basketPrice}€</Text>
+      </View>
+      <View>
+        <FoodList
+          foodList={foodList}
+          setFoodList={setFoodList}
+          basketPrice={basketPrice}
+          setBasketPrice={setBasketPrice}
+        ></FoodList>
       </View>
     </View>
   );

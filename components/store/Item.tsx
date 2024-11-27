@@ -4,6 +4,8 @@ import React from "react";
 
 type FoodItemProps = {
   foodItem: foodItem;
+  setBasketPrice: Function;
+  basketPrice: number | undefined;
 };
 
 const Item = (props: FoodItemProps) => {
@@ -16,13 +18,20 @@ const Item = (props: FoodItemProps) => {
       case "3":
         return require("../../assets/storeImages/43.png");
       case "4":
-        return require("../../assets/storeImages/41.png");
+        return require("../../assets/storeImages/44.png");
       case "5":
-        return require("../../assets/storeImages/41.png");
+        return require("../../assets/storeImages/45.png");
       case "6":
-        return require("../../assets/storeImages/41.png");
+        return; //require("../../assets/storeImages/46.png");
       case "7":
-        return require("../../assets/storeImages/41.png");
+        return; //require("../../assets/storeImages/47.png");
+    }
+  };
+  const handlerBasketClick = (props: FoodItemProps) => {
+    if (props.setBasketPrice != null && props.basketPrice != null) {
+      return props.setBasketPrice(props.foodItem.price + props.basketPrice);
+    } else {
+      console.log("No está cogiendo el numero");
     }
   };
 
@@ -37,7 +46,12 @@ const Item = (props: FoodItemProps) => {
         <Text>Precio: {props.foodItem.price}€</Text>
       </View>
       <View style={[styles.container, styles.container]}>
-        <Pressable style={styles.buttom}>
+        <Pressable
+          style={styles.buttom}
+          onPress={() => {
+            handlerBasketClick(props);
+          }}
+        >
           <Text style={styles.buttonText}>Basket</Text>
         </Pressable>
         <Pressable style={styles.buttom}>

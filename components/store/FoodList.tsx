@@ -6,6 +6,8 @@ import { foodItem } from "../../types/AppTypes";
 type FoodListProps = {
   foodList: foodItem[] | undefined;
   setFoodList: Function;
+  basketPrice: number | undefined;
+  setBasketPrice: Function;
 };
 
 const FoodList = (props: FoodListProps) => {
@@ -21,6 +23,8 @@ const FoodList = (props: FoodListProps) => {
             price: listItem.price,
             section: listItem.section,
           }}
+          setBasketPrice={props.setBasketPrice}
+          basketPrice={props.basketPrice}
         ></Item>
       ));
     } else {
