@@ -20,6 +20,9 @@ function WelcomePage() {
             <Link href="/porfolio" style={styleSheet.linkText}>
               NAVEGAR
             </Link>
+            <Link href="/store" style={styleSheet.linkText}>
+              STORE
+            </Link>
           </View>
         </View>
       </View>
