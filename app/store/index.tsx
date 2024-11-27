@@ -1,7 +1,8 @@
-import React from "react";
+import React, { useState } from "react";
 import { Text, View, Image } from "react-native";
 import Item from "../../components/store/Item";
 import { foodItem } from "../../types/AppTypes";
+import FoodList from "../../components/store/FoodList";
 
 const foodStore = () => {
   let item: foodItem = {
@@ -10,17 +11,14 @@ const foodStore = () => {
     price: 20.56,
     section: "Carne",
   };
+
+  let [foodList, setFoodList] = useState<foodItem[] | []>([item]);
+
   return (
     <View>
       <Text>LISTA DE LA COMPRA</Text>
       <View>
-        <Item
-          /* image={item.image}
-          name={item.name}
-          price={item.price}
-          section={item.section} */
-          foodItem={item}
-        ></Item>
+        <FoodList foodList={foodList} setFoodList={setFoodList}></FoodList>
       </View>
     </View>
   );
