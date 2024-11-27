@@ -13,11 +13,13 @@ const FoodList = (props: FoodListProps) => {
     if (props.foodList != undefined) {
       return props.foodList.map((listItem) => (
         <Item
+          key={listItem.id}
           foodItem={{
-            image: ` ${listItem.image}`,
-            name: ` ${listItem.name}`,
-            price: Number(` ${listItem.price}`),
-            section: ` ${listItem.section}`,
+            id: listItem.id,
+            image: listItem.image,
+            name: listItem.name,
+            price: listItem.price,
+            section: listItem.section,
           }}
         ></Item>
       ));
