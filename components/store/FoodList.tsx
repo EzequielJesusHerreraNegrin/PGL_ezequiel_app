@@ -1,26 +1,26 @@
 import { ScrollView, StyleSheet, Text, View } from "react-native";
-import React, { Children } from "react";
 import Item from "./Item";
 import { foodItem } from "../../types/AppTypes";
 
 type FoodListProps = {
-  foodList: foodItem[] | undefined;
+  foodList: foodItem[];
   setFoodList: Function;
-  basketPrice: number | undefined;
+  basketPrice: number;
   setBasketPrice: Function;
 };
 
 const FoodList = (props: FoodListProps) => {
   const handlerFoodList = () => {
     if (props.foodList != undefined) {
+      console.log(typeof props.foodList);
       return props.foodList.map((listItem) => (
         <Item
-          key={listItem.id}
           foodItem={{
             id: listItem.id,
             image: listItem.image,
             name: listItem.name,
             price: listItem.price,
+            quantity: listItem.quantity,
             section: listItem.section,
           }}
           setBasketPrice={props.setBasketPrice}

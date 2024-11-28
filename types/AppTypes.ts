@@ -1,9 +1,19 @@
-import { Float } from "react-native/Libraries/Types/CodegenTypes";
+import uuid from "react-native-uuid";
 
 export type foodItem = {
-  id: number;
-  image?: string;
+  id: string;
+  image: string;
   name: string;
-  price: Float;
+  price: string;
+  quantity: string;
   section: string;
+};
+
+export type newFood = {
+  id: "";
+  image: "";
+  name: "";
+  price: "";
+  quantity: "";
+  section: "";
 };

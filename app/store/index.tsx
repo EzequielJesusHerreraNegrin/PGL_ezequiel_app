@@ -1,40 +1,40 @@
 import React, { useState } from "react";
-import { Text, View, Image, StyleSheet, Pressable, Modal } from "react-native";
+import { Text, View, StyleSheet, Pressable, Modal } from "react-native";
 import { foodItem } from "../../types/AppTypes";
 import FoodList from "../../components/store/FoodList";
-import { Float } from "react-native/Libraries/Types/CodegenTypes";
-import { Link } from "expo-router";
 import AddModal from "../../components/store/AddModal";
 
 const foodStore = () => {
   let items: foodItem[] = [
     {
-      id: 0,
+      id: "0",
       image: "1",
       name: "Hola",
-      price: 12.56,
+      price: "12.56",
+      quantity: "2",
       section: "Carne",
     },
     {
-      id: 1,
+      id: "1",
       image: "3",
       name: "Chuleta de Cerdo",
-      price: 35.56,
+      price: "35.56",
+      quantity: "2",
       section: "otro",
     },
     {
-      id: 2,
+      id: "2",
       image: "4",
       name: "Chuleta de Cerdo",
-      price: 20.56,
+      price: "20.56",
+      quantity: "2",
       section: "otro",
     },
   ];
 
-  let [foodList, setFoodList] = useState<foodItem[] | []>(items);
-  let [basketPrice, setBasketPrice] = useState<Float>(0);
+  let [foodList, setFoodList] = useState<foodItem[]>(items);
+  let [basketPrice, setBasketPrice] = useState<number>(0);
   let [modalVisibility, setModalVisibility] = useState<boolean>(false);
-  let [newFood, setNewFood] = useState<foodItem>();
 
   return (
     <View>
@@ -76,9 +76,9 @@ const foodStore = () => {
       </View>
       <Modal visible={modalVisibility} animationType="slide" transparent>
         <AddModal
-          newFood={newFood}
-          setNewFood={setNewFood}
+          setFoodList={setFoodList}
           setModalVisibility={setModalVisibility}
+          foodList={foodList}
         />
       </Modal>
     </View>

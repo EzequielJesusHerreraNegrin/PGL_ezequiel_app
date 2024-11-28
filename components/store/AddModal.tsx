@@ -1,15 +1,37 @@
 import { Pressable, StyleSheet, Text, TextInput, View } from "react-native";
-import React from "react";
-import { foodItem } from "../../types/AppTypes";
+import React, { useState } from "react";
+import { foodItem, newFood } from "../../types/AppTypes";
+import uuid from "react-native-uuid";
 
 type AddModalProps = {
-  newFood: foodItem | undefined;
-  setNewFood: Function;
+  /*   newFood: foodItem ;
+  setNewFood: Function; */
   setModalVisibility: Function;
+  setFoodList: Function;
+  foodList: foodItem[];
 };
 
 const AddModal = (props: AddModalProps) => {
-  const handleSubmit = () => {};
+  let [newFood, setNewFood] = useState<foodItem>({
+    id: uuid.v4(),
+    image: "",
+    name: "",
+    price: "",
+    quantity: "",
+    section: "",
+  });
+
+  const handleSubmit = () => {
+    props.setFoodList((oldProducts: foodItem[]) => [...oldProducts, newFood]);
+    const obj: foodItem = newFood!;
+  };
+
+  const handleInputChange = (name: string, value: string) => {
+    setNewFood({
+      ...newFood,
+      [name]: value,
+    });
+  };
 
   return (
     <View style={styles.container}>
@@ -19,30 +41,35 @@ const AddModal = (props: AddModalProps) => {
         </View>
         <TextInput
           placeholder="nombre"
-          value=""
-          //onChangeText={}
+          value={newFood.name}
+          onChangeText={(text) => handleInputChange("name", text)}
+          style={styles.inputStyle}
         ></TextInput>
         <TextInput
           placeholder="categoría"
-          value=""
-          //onChangeText={}
+          value={newFood.section}
+          onChangeText={(text) => handleInputChange("section", text)}
+          style={styles.inputStyle}
         ></TextInput>
         <TextInput
           placeholder="cantidad"
           keyboardType="numeric"
-          value=""
-          //onChangeText={}
+          value={newFood.quantity}
+          onChangeText={(text) => handleInputChange("quantity", text)}
+          style={styles.inputStyle}
         ></TextInput>
         <TextInput
-          placeholder="inporte"
+          placeholder="importe"
           keyboardType="numeric"
-          value=""
-          //onChangeText={}
+          value={newFood.price}
+          onChangeText={(text) => handleInputChange("price", text)}
+          style={styles.inputStyle}
         ></TextInput>
         <View>
           <Pressable
             onPress={() => {
               props.setModalVisibility(false);
+              handleSubmit();
             }}
           >
             <Text>Crear Producto</Text>
@@ -71,6 +98,10 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderRadius: 10,
     padding: 10,
+    gap: 10,
   },
   formTitle: {},
+  inputStyle: {
+    borderWidth: 1,
+  },
 });

@@ -5,19 +5,19 @@ import React from "react";
 type FoodItemProps = {
   foodItem: foodItem;
   setBasketPrice: Function;
-  basketPrice: number | undefined;
+  basketPrice: number;
 };
 
 const Item = (props: FoodItemProps) => {
   const itemImage = () => {
-    switch (props.foodItem.image) {
-      case "1":
+    switch (props.foodItem.section) {
+      case "carne":
         return require("../../assets/storeImages/41.png");
-      case "2":
+      case "pescado":
         return require("../../assets/storeImages/42.png");
-      case "3":
+      case "panaderia":
         return require("../../assets/storeImages/43.png");
-      case "4":
+      case "fruta y verdura":
         return require("../../assets/storeImages/44.png");
       case "5":
         return require("../../assets/storeImages/45.png");
@@ -43,6 +43,7 @@ const Item = (props: FoodItemProps) => {
       <View style={styles.container}>
         <Text>Nombre: {props.foodItem.name}</Text>
         <Text>Categoría: {props.foodItem.section}</Text>
+        <Text>Cantidad: {props.foodItem.quantity}</Text>
         <Text>Precio: {props.foodItem.price}€</Text>
       </View>
       <View style={[styles.container, styles.container]}>
