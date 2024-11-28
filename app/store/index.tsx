@@ -8,7 +8,7 @@ const foodStore = () => {
   let items: foodItem[] = [
     {
       id: "0",
-      image: "1",
+      isInBasket: false,
       name: "Hola",
       price: "12.56",
       quantity: "2",
@@ -16,7 +16,7 @@ const foodStore = () => {
     },
     {
       id: "1",
-      image: "3",
+      isInBasket: false,
       name: "Chuleta de Cerdo",
       price: "35.56",
       quantity: "2",
@@ -24,7 +24,7 @@ const foodStore = () => {
     },
     {
       id: "2",
-      image: "4",
+      isInBasket: false,
       name: "Chuleta de Cerdo",
       price: "20.56",
       quantity: "2",
@@ -35,6 +35,7 @@ const foodStore = () => {
   let [foodList, setFoodList] = useState<foodItem[]>(items);
   let [basketPrice, setBasketPrice] = useState<number>(0);
   let [modalVisibility, setModalVisibility] = useState<boolean>(false);
+  let [isInBasket, setIsInBasket] = useState<boolean>(false);
 
   return (
     <View>
@@ -44,7 +45,7 @@ const foodStore = () => {
         </View>
         <View style={styles.headerOptionsBox}>
           <View style={styles.priceDisplayBox}>
-            <Text>Total Price: {basketPrice}€</Text>
+            <Text>Total Price: {Math.round(basketPrice * 100) / 100}€</Text>
           </View>
           <View style={styles.butttonBox}>
             <Pressable style={styles.buttom}>
@@ -72,13 +73,14 @@ const foodStore = () => {
           setFoodList={setFoodList}
           basketPrice={basketPrice}
           setBasketPrice={setBasketPrice}
+          isInBasket={isInBasket}
+          setIsInBasket={setIsInBasket}
         ></FoodList>
       </View>
       <Modal visible={modalVisibility} animationType="slide" transparent>
         <AddModal
           setFoodList={setFoodList}
           setModalVisibility={setModalVisibility}
-          foodList={foodList}
         />
       </Modal>
     </View>

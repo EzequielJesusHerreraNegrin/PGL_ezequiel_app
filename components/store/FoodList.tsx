@@ -7,25 +7,29 @@ type FoodListProps = {
   setFoodList: Function;
   basketPrice: number;
   setBasketPrice: Function;
+  isInBasket: boolean;
+  setIsInBasket: Function;
 };
 
 const FoodList = (props: FoodListProps) => {
   const handlerFoodList = () => {
     if (props.foodList != undefined) {
-      console.log(typeof props.foodList);
       return props.foodList.map((listItem) => (
         <Item
+          key={listItem.id}
           foodItem={{
             id: listItem.id,
-            image: listItem.image,
             name: listItem.name,
             price: listItem.price,
+            isInBasket: listItem.isInBasket,
             quantity: listItem.quantity,
             section: listItem.section,
           }}
           setBasketPrice={props.setBasketPrice}
           basketPrice={props.basketPrice}
-        ></Item>
+          isInBasket={props.isInBasket}
+          setIsInBasket={props.setBasketPrice}
+        />
       ));
     } else {
       return [];
@@ -34,7 +38,9 @@ const FoodList = (props: FoodListProps) => {
 
   return (
     <View>
-      <ScrollView>{handlerFoodList()}</ScrollView>
+      <ScrollView showsVerticalScrollIndicator={false}>
+        {handlerFoodList()}
+      </ScrollView>
     </View>
   );
 };

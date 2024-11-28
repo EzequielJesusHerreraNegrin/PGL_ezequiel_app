@@ -4,21 +4,18 @@ import { foodItem, newFood } from "../../types/AppTypes";
 import uuid from "react-native-uuid";
 
 type AddModalProps = {
-  /*   newFood: foodItem ;
-  setNewFood: Function; */
   setModalVisibility: Function;
   setFoodList: Function;
-  foodList: foodItem[];
 };
 
 const AddModal = (props: AddModalProps) => {
   let [newFood, setNewFood] = useState<foodItem>({
     id: uuid.v4(),
-    image: "",
     name: "",
     price: "",
     quantity: "",
     section: "",
+    isInBasket: false,
   });
 
   const handleSubmit = () => {
@@ -72,7 +69,16 @@ const AddModal = (props: AddModalProps) => {
               handleSubmit();
             }}
           >
-            <Text>Crear Producto</Text>
+            <Text>Crear Producto1</Text>
+          </Pressable>
+        </View>
+        <View>
+          <Pressable
+            onPress={() => {
+              props.setModalVisibility(false);
+            }}
+          >
+            <Text>Cancelar</Text>
           </Pressable>
         </View>
       </View>
