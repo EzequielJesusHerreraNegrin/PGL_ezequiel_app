@@ -12,7 +12,7 @@ const foodStore = () => {
       name: "Hola",
       price: "12.56",
       quantity: "2",
-      section: "Carne",
+      section: "carne",
     },
     {
       id: "1",
@@ -20,7 +20,7 @@ const foodStore = () => {
       name: "Chuleta de Cerdo",
       price: "35.56",
       quantity: "2",
-      section: "otro",
+      section: "otros",
     },
     {
       id: "2",
@@ -28,14 +28,13 @@ const foodStore = () => {
       name: "Chuleta de Cerdo",
       price: "20.56",
       quantity: "2",
-      section: "otro",
+      section: "pescado",
     },
   ];
 
   let [foodList, setFoodList] = useState<foodItem[]>(items);
   let [basketPrice, setBasketPrice] = useState<number>(0);
   let [modalVisibility, setModalVisibility] = useState<boolean>(false);
-  let [isInBasket, setIsInBasket] = useState<boolean>(false);
 
   return (
     <View>
@@ -53,7 +52,6 @@ const foodStore = () => {
                 style={styles.buttonText}
                 onPress={() => {
                   {
-                    console.log(modalVisibility);
                     setModalVisibility(true);
                   }
                 }}
@@ -73,8 +71,6 @@ const foodStore = () => {
           setFoodList={setFoodList}
           basketPrice={basketPrice}
           setBasketPrice={setBasketPrice}
-          isInBasket={isInBasket}
-          setIsInBasket={setIsInBasket}
         ></FoodList>
       </View>
       <Modal visible={modalVisibility} animationType="slide" transparent>
