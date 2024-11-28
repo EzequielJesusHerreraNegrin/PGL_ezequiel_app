@@ -1,81 +1,81 @@
 import { StyleSheet, Text, View, Image, Button, Pressable } from "react-native";
 import { foodItem } from "../../types/AppTypes";
-import React from "react";
+import React, { useState } from "react";
 
 type FoodItemProps = {
   foodItem: foodItem;
   setBasketPrice: Function;
   basketPrice: number;
-  isInBasket: boolean;
-  setIsInBasket: Function;
   deleteItem: Function;
 };
 
 const Item = (props: FoodItemProps) => {
+  let [isInBasket, setIsInBasket] = useState<boolean>(false);
   const itemImage = () => {
     switch (props.foodItem.section) {
       case "carne":
-        return require("../../assets/storeImages/41.png");
+        return require("../../assets/storeImages/carne.png");
       case "pescado":
-        return require("../../assets/storeImages/42.png");
+        return require("../../assets/storeImages/pescado.png");
       case "panaderia":
-        return require("../../assets/storeImages/43.png");
-      case "fruta y verdura":
-        return require("../../assets/storeImages/44.png");
-      case "5":
-        return require("../../assets/storeImages/45.png");
-      case "6":
-        return; //require("../../assets/storeImages/46.png");
-      case "7":
-        return; //require("../../assets/storeImages/47.png");
+        return require("../../assets/storeImages/panaderia.png");
+      case "fruta":
+        return require("../../assets/storeImages/fruta.png");
+      case "verdura":
+        return require("../../assets/storeImages/fruta.png");
+      case "bebidas":
+        return require("../../assets/storeImages/bebidas.png");
+      case "enlatados":
+        return require("../../assets/storeImages/enlatados.png");
+      case "otros":
+        return require("../../assets/storeImages/otros.png");
     }
   };
-  const handlerBasketPrice = (props: FoodItemProps) => {
-    if (props.setBasketPrice != null && props.basketPrice != null) {
+  const handlerBasket = (props: FoodItemProps) => {
+    setIsInBasket(!isInBasket);
+    if (
+      props.setBasketPrice != null &&
+      props.basketPrice != null &&
+      !isInBasket
+    ) {
       return props.setBasketPrice(
         parseFloat(props.foodItem.price) * parseFloat(props.foodItem.quantity) +
           props.basketPrice
       );
+    } else if (props.basketPrice) {
+      parseFloat(props.foodItem.price) * parseFloat(props.foodItem.quantity) -
+        props.basketPrice;
     }
   };
 
-  const isInBasketAction = () => {
-    if (props.isInBasket) {
-      return props.setIsInBasket(true);
-    } else {
-      return props.setIsInBasket(false);
-    }
-  };
+  //console.log(props.isInBasket);
 
   return (
-    <View style={itemStiles(props.isInBasket).mainContainer}>
-      <View style={itemStiles(props.isInBasket).container}>
-        <Image
-          source={itemImage()}
-          style={itemStiles(props.isInBasket).image}
-        />
+    <View style={itemStiles(isInBasket).mainContainer}>
+      <View style={itemStiles(isInBasket).container}>
+        <Image source={itemImage()} style={itemStiles(isInBasket).image} />
       </View>
-      <View style={itemStiles(props.isInBasket).container}>
+      <View style={itemStiles(isInBasket).container}>
         <Text>Nombre: {props.foodItem.name}</Text>
         <Text>Categoría: {props.foodItem.section}</Text>
         <Text>Cantidad: {props.foodItem.quantity}</Text>
         <Text>Precio: {props.foodItem.price}€</Text>
       </View>
-      <View style={itemStiles(props.isInBasket).container}>
+      <View style={itemStiles(isInBasket).container}>
         <Pressable
-          style={itemStiles(props.isInBasket).buttom}
+          style={itemStiles(isInBasket).buttom}
           onPress={() => {
-            handlerBasketPrice(props);
+            handlerBasket(props);
             //props.setIsInBasket(!props.isInBasket);
           }}
         >
-          <Text style={itemStiles(props.isInBasket).buttonText}>Basket</Text>
+          <Text style={itemStiles(isInBasket).buttonText}>Basket</Text>
         </Pressable>
         <Pressable
-          style={itemStiles(props.isInBasket).buttom}
+          style={itemStiles(isInBasket).buttom}
           onPress={() => props.deleteItem(props.foodItem.id)}
         >
-          <Text style={itemStiles(props.isInBasket).buttonText}>Delete</Text>
+          <Text style={itemStiles(isInBasket).buttonText}>Delete</Text>
         </Pressable>
       </View>
     </View>
