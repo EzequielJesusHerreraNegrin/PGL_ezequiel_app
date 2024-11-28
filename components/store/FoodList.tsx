@@ -1,14 +1,50 @@
-import { Text, View } from "react-native";
-import React, { Component } from "react";
+import { ScrollView, StyleSheet, Text, View } from "react-native";
+import Item from "./Item";
+import { foodItem } from "../../types/AppTypes";
 
-export class foodList extends Component {
-  render() {
-    return (
-      <View>
-        <Text>foodList</Text>
-      </View>
-    );
-  }
-}
+type FoodListProps = {
+  foodList: foodItem[];
+  setFoodList: Function;
+  basketPrice: number;
+  setBasketPrice: Function;
+  isInBasket: boolean;
+  setIsInBasket: Function;
+};
 
-export default foodList;
+const FoodList = (props: FoodListProps) => {
+  const handlerFoodList = () => {
+    if (props.foodList != undefined) {
+      return props.foodList.map((listItem) => (
+        <Item
+          key={listItem.id}
+          foodItem={{
+            id: listItem.id,
+            name: listItem.name,
+            price: listItem.price,
+            isInBasket: listItem.isInBasket,
+            quantity: listItem.quantity,
+            section: listItem.section,
+          }}
+          setBasketPrice={props.setBasketPrice}
+          basketPrice={props.basketPrice}
+          isInBasket={props.isInBasket}
+          setIsInBasket={props.setBasketPrice}
+        />
+      ));
+    } else {
+      return [];
+    }
+  };
+
+  return (
+    <View>
+      <ScrollView showsVerticalScrollIndicator={false}>
+        {handlerFoodList()}
+      </ScrollView>
+    </View>
+  );
+};
+
+export default FoodList;
+
+const styles = StyleSheet.create({});
