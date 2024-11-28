@@ -8,6 +8,7 @@ type FoodItemProps = {
   basketPrice: number;
   isInBasket: boolean;
   setIsInBasket: Function;
+  deleteItem: Function;
 };
 
 const Item = (props: FoodItemProps) => {
@@ -45,6 +46,7 @@ const Item = (props: FoodItemProps) => {
       return props.setIsInBasket(false);
     }
   };
+
   return (
     <View style={itemStiles(props.isInBasket).mainContainer}>
       <View style={itemStiles(props.isInBasket).container}>
@@ -69,7 +71,10 @@ const Item = (props: FoodItemProps) => {
         >
           <Text style={itemStiles(props.isInBasket).buttonText}>Basket</Text>
         </Pressable>
-        <Pressable style={itemStiles(props.isInBasket).buttom}>
+        <Pressable
+          style={itemStiles(props.isInBasket).buttom}
+          onPress={() => props.deleteItem(props.foodItem.id)}
+        >
           <Text style={itemStiles(props.isInBasket).buttonText}>Delete</Text>
         </Pressable>
       </View>

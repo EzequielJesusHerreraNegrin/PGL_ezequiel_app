@@ -29,11 +29,17 @@ const FoodList = (props: FoodListProps) => {
           basketPrice={props.basketPrice}
           isInBasket={props.isInBasket}
           setIsInBasket={props.setBasketPrice}
+          deleteItem={deleteItem}
         />
       ));
     } else {
       return [];
     }
+  };
+
+  const deleteItem = (id: string) => {
+    const newFoodList = props.foodList.filter((item) => item.id != id);
+    props.setFoodList(newFoodList);
   };
 
   return (
