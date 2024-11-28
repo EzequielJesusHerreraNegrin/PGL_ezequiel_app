@@ -61,7 +61,7 @@ const foodStore = () => {
                 Add
               </Text>
             </Pressable>
-            <Pressable style={styles.buttom}>
+            <Pressable style={styles.buttom} onPress={() => setFoodList([])}>
               <Text style={styles.buttonText}>Clean</Text>
             </Pressable>
           </View>
