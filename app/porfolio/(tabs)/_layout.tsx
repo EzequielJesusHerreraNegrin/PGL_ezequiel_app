@@ -9,7 +9,10 @@ export const tabsLayout = () => {
     <Tabs
       screenOptions={{
         header: () => <Header />,
-        tabBarLabelStyle: { fontSize: 15, fontWeight: "bold" },
+        tabBarLabelStyle: {
+          fontSize: 15,
+          fontWeight: "bold",
+        },
         tabBarActiveTintColor: "#1083D6",
         tabBarStyle: styles.tabBar,
       }}
@@ -42,9 +45,7 @@ const styles = StyleSheet.create({
   },
   tabBar: {
     backgroundColor: "#8CD3F5",
-  },
-  tabScreen: {
-    flex: 12,
+    height: 60,
   },
 });
 
