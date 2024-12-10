@@ -40,11 +40,15 @@ const foodStore = () => {
     <View>
       <View style={styles.header}>
         <View style={styles.titleBox}>
-          <Text>LISTA DE LA COMPRA</Text>
+          <Text style={{ fontWeight: 800, color: "white" }}>
+            LISTA DE LA COMPRA
+          </Text>
         </View>
         <View style={styles.headerOptionsBox}>
           <View style={styles.priceDisplayBox}>
-            <Text>Total Price: {Math.round(basketPrice * 100) / 100}€</Text>
+            <Text style={{ fontWeight: 500, color: "white" }}>
+              Total Price: {Math.round(basketPrice * 100) / 100}€
+            </Text>
           </View>
           <View style={styles.butttonBox}>
             <Pressable style={styles.buttom}>
@@ -91,7 +95,7 @@ const styles = StyleSheet.create({
     paddingTop: 10,
     paddingBottom: 10,
     gap: 5,
-    backgroundColor: "cyan",
+    backgroundColor: "#004080",
     //justifyContent: "center",
     //alignContent: "center",
     alignItems: "center",

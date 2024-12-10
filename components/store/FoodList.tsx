@@ -37,12 +37,21 @@ const FoodList = (props: FoodListProps) => {
   };
 
   return (
-    <View>
+    <View style={{ width: "100%", height: "100%" }}>
       <ScrollView showsVerticalScrollIndicator={false}>
         {props.foodList.length > 0 ? (
           handlerFoodList()
         ) : (
-          <Text>La Lista está vacía</Text>
+          <View style={{ marginTop: "100%" }}>
+            <Text
+              style={{
+                textAlign: "center",
+                fontWeight: 900,
+              }}
+            >
+              La Lista está vacía
+            </Text>
+          </View>
         )}
       </ScrollView>
     </View>
