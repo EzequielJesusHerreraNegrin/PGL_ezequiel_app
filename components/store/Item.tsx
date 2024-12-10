@@ -39,12 +39,15 @@ const Item = (props: FoodItemProps) => {
       !isInBasket
     ) {
       return props.setBasketPrice(
-        parseFloat(props.foodItem.price) * parseFloat(props.foodItem.quantity) +
-          props.basketPrice
+        props.basketPrice +
+          parseFloat(props.foodItem.price) * parseFloat(props.foodItem.quantity)
       );
-    } else if (props.basketPrice) {
-      parseFloat(props.foodItem.price) * parseFloat(props.foodItem.quantity) -
-        props.basketPrice;
+    } else if (isInBasket) {
+      console.log("hola");
+      props.setBasketPrice(
+        props.basketPrice -
+          parseFloat(props.foodItem.price) * parseFloat(props.foodItem.quantity)
+      );
     }
   };
 
