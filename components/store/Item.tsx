@@ -43,7 +43,6 @@ const Item = (props: FoodItemProps) => {
           parseFloat(props.foodItem.price) * parseFloat(props.foodItem.quantity)
       );
     } else if (isInBasket) {
-      console.log("hola");
       props.setBasketPrice(
         props.basketPrice -
           parseFloat(props.foodItem.price) * parseFloat(props.foodItem.quantity)
@@ -76,7 +75,11 @@ const Item = (props: FoodItemProps) => {
         </Pressable>
         <Pressable
           style={itemStiles(isInBasket).buttom}
-          onPress={() => props.deleteItem(props.foodItem.id)}
+          onPress={() => {
+            props.deleteItem(props.foodItem.id);
+            setIsInBasket(false);
+            handlerBasket(props);
+          }}
         >
           <Text style={itemStiles(isInBasket).buttonText}>Delete</Text>
         </Pressable>
