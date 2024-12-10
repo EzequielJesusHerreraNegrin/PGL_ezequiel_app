@@ -62,23 +62,31 @@ const AddModal = (props: AddModalProps) => {
           onChangeText={(text) => handleInputChange("price", text)}
           style={styles.inputStyle}
         ></TextInput>
-        <View>
+        <View style={styles.formButtomBox}>
           <Pressable
+            style={styles.formButtons}
             onPress={() => {
               props.setModalVisibility(false);
               handleSubmit();
             }}
           >
-            <Text>Crear Producto1</Text>
+            <Text
+              style={{ margin: "auto", textAlign: "center", color: "white" }}
+            >
+              Crear
+            </Text>
           </Pressable>
-        </View>
-        <View>
           <Pressable
+            style={styles.formButtons}
             onPress={() => {
               props.setModalVisibility(false);
             }}
           >
-            <Text>Cancelar</Text>
+            <Text
+              style={{ margin: "auto", textAlign: "center", color: "white" }}
+            >
+              Cancelar
+            </Text>
           </Pressable>
         </View>
       </View>
@@ -109,5 +117,18 @@ const styles = StyleSheet.create({
   formTitle: {},
   inputStyle: {
     borderWidth: 1,
+  },
+  formButtons: {
+    padding: 10,
+    borderBlockColor: "black",
+    borderWidth: 1,
+    borderRadius: 10,
+    width: "50%",
+    backgroundColor: "#4287f5",
+  },
+  formButtomBox: {
+    top: 15,
+    gap: 15,
+    alignItems: "center",
   },
 });
