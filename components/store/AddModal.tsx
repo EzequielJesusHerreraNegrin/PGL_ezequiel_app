@@ -1,11 +1,15 @@
-import { Pressable, StyleSheet, Text, TextInput, View } from "react-native";
+import {
+  Alert,
+  Pressable,
+  StyleSheet,
+  Text,
+  TextInput,
+  View,
+} from "react-native";
 import React, { useState } from "react";
 import { foodItem, newFood } from "../../types/AppTypes";
 import uuid from "react-native-uuid";
-import {
-  MultipleSelectList,
-  SelectList,
-} from "react-native-dropdown-select-list";
+import { SelectList } from "react-native-dropdown-select-list";
 
 type AddModalProps = {
   setModalVisibility: Function;
@@ -35,12 +39,15 @@ const AddModal = (props: AddModalProps) => {
   ];
 
   const handleSubmit = () => {
-    props.setFoodList((oldProducts: foodItem[]) => [...oldProducts, newFood]);
-    const obj: foodItem = newFood!;
+    if (newFood.name != "" && newFood.quantity != "" && newFood.price != "") {
+      props.setFoodList((oldProducts: foodItem[]) => [...oldProducts, newFood]);
+      //const obj: foodItem = newFood!;r
+    } else {
+      alert("Debe completar todos los campos.");
+    }
   };
 
   const handleInputChange = (name: string, value: string | never[]) => {
-    console.log(value);
     setNewFood({
       ...newFood,
       [name]: value,
