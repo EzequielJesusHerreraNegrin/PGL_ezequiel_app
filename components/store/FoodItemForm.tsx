@@ -7,25 +7,23 @@ import {
   View,
 } from "react-native";
 import React, { useState } from "react";
-import { foodItem, newFood } from "../../types/AppTypes";
-import uuid from "react-native-uuid";
+import { FoodItem } from "../../types/AppTypes";
 import { SelectList } from "react-native-dropdown-select-list";
 
-type AddModalProps = {
-  setModalVisibility: Function;
-  setFoodList: Function;
+type FoodItemFormProps = {
+  foodItem: FoodItem;
+  setFoodItem: Function;
+  addFoodItem: () => void;
+  closeModal: () => void;
 };
 
-const AddModal = (props: AddModalProps) => {
+const FoodItemForm = ({
+  foodItem,
+  setFoodItem,
+  addFoodItem,
+  closeModal,
+}: FoodItemFormProps) => {
   const [selected, setSelected] = React.useState([]);
-  let [newFood, setNewFood] = useState<foodItem>({
-    id: uuid.v4(),
-    name: "",
-    price: "",
-    quantity: "",
-    section: "",
-    isInBasket: false,
-  });
 
   const categories = [
     { key: "1", value: "carne" },
@@ -38,22 +36,6 @@ const AddModal = (props: AddModalProps) => {
     { key: "8", value: "otros" },
   ];
 
-  const handleSubmit = () => {
-    if (newFood.name != "" && newFood.quantity != "" && newFood.price != "") {
-      props.setFoodList((oldProducts: foodItem[]) => [...oldProducts, newFood]);
-      //const obj: foodItem = newFood!;r
-    } else {
-      alert("Debe completar todos los campos.");
-    }
-  };
-
-  const handleInputChange = (name: string, value: string | never[]) => {
-    setNewFood({
-      ...newFood,
-      [name]: value,
-    });
-  };
-
   return (
     <View style={styles.container}>
       <View style={styles.formContainer}>
@@ -62,9 +44,10 @@ const AddModal = (props: AddModalProps) => {
         </View>
         <TextInput
           placeholder="nombre"
-          value={newFood.name}
-          onChangeText={(text) => handleInputChange("name", text)}
+          value={foodItem.name}
+          onChangeText={(text) => setFoodItem({ ...foodItem, name: text })}
           style={styles.inputStyle}
+          //defaultValue={props.editItem.name == "" ? foodItem.name : props.editItem.name }
         ></TextInput>
         <SelectList
           setSelected={(val: React.SetStateAction<never[]>) => setSelected(val)}
@@ -73,43 +56,32 @@ const AddModal = (props: AddModalProps) => {
           boxStyles={{ borderColor: "black" }}
           dropdownStyles={{ borderColor: "black" }}
           maxHeight={120}
-          onSelect={() => handleInputChange("section", selected)}
+          onSelect={() => setFoodItem({ ...foodItem, section: selected })}
           defaultOption={{ key: "8", value: "otros" }}
         ></SelectList>
         <TextInput
           placeholder="cantidad"
           keyboardType="numeric"
-          value={newFood.quantity}
-          onChangeText={(text) => handleInputChange("quantity", text)}
+          value={foodItem.quantity}
+          onChangeText={(text) => setFoodItem({ ...foodItem, quantity: text })}
           style={styles.inputStyle}
         ></TextInput>
         <TextInput
           placeholder="importe"
           keyboardType="numeric"
-          value={newFood.price}
-          onChangeText={(text) => handleInputChange("price", text)}
+          value={foodItem.price}
+          onChangeText={(text) => setFoodItem({ ...foodItem, price: text })}
           style={styles.inputStyle}
         ></TextInput>
         <View style={styles.formButtomBox}>
-          <Pressable
-            style={styles.formButtons}
-            onPress={() => {
-              props.setModalVisibility(false);
-              handleSubmit();
-            }}
-          >
+          <Pressable style={styles.formButtons} onPress={addFoodItem}>
             <Text
               style={{ margin: "auto", textAlign: "center", color: "white" }}
             >
               Crear
             </Text>
           </Pressable>
-          <Pressable
-            style={styles.formButtons}
-            onPress={() => {
-              props.setModalVisibility(false);
-            }}
-          >
+          <Pressable style={styles.formButtons} onPress={closeModal}>
             <Text
               style={{ margin: "auto", textAlign: "center", color: "white" }}
             >
@@ -122,7 +94,7 @@ const AddModal = (props: AddModalProps) => {
   );
 };
 
-export default AddModal;
+export default FoodItemForm;
 
 const styles = StyleSheet.create({
   container: {

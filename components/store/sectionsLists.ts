@@ -1,9 +1,9 @@
-import { foodItem } from "../../types/AppTypes";
+import { FoodItem } from "../../types/AppTypes";
 
-const bakeryItems: foodItem[] = [];
-const drinkItems: foodItem[] = [];
-const preserveItems: foodItem[] = [];
-const meatItems: foodItem[] = [];
-const seaItems: foodItem[] = [];
-const greensAndFruitItems: foodItem[] = [];
-const otherItems: foodItem[] = [];
+const bakeryItems: FoodItem[] = [];
+const drinkItems: FoodItem[] = [];
+const preserveItems: FoodItem[] = [];
+const meatItems: FoodItem[] = [];
+const seaItems: FoodItem[] = [];
+const greensAndFruitItems: FoodItem[] = [];
+const otherItems: FoodItem[] = [];

@@ -1,40 +1,62 @@
 import React, { useState } from "react";
-import { Text, View, StyleSheet, Pressable, Modal } from "react-native";
-import { foodItem } from "../../types/AppTypes";
-import FoodList from "../../components/store/FoodList";
-import AddModal from "../../components/store/AddModal";
+import {
+  Text,
+  View,
+  StyleSheet,
+  Pressable,
+  Modal,
+  ScrollView,
+} from "react-native";
+import { FoodItem } from "../../types/AppTypes";
+import FoodItemForm from "../../components/store/FoodItemForm";
+import { foodItems, getDefaultFoodItem } from "../../data/foodItems";
+import Item from "../../components/store/Item";
 
-const foodStore = () => {
-  let items: foodItem[] = [
-    {
-      id: "0",
-      isInBasket: false,
-      name: "Hola",
-      price: "12.56",
-      quantity: "2",
-      section: "carne",
-    },
-    {
-      id: "1",
-      isInBasket: false,
-      name: "Chuleta de Cerdo",
-      price: "35.56",
-      quantity: "2",
-      section: "otros",
-    },
-    {
-      id: "2",
-      isInBasket: false,
-      name: "Chuleta de Cerdo",
-      price: "20.56",
-      quantity: "2",
-      section: "pescado",
-    },
-  ];
-
-  let [foodList, setFoodList] = useState<foodItem[]>(items);
+const FoodStorePage = () => {
+  let [foodItem, setFoodItem] = useState<FoodItem>(getDefaultFoodItem());
+  let [foodList, setFoodList] = useState<FoodItem[]>(foodItems);
   let [basketPrice, setBasketPrice] = useState<number>(0);
   let [modalVisibility, setModalVisibility] = useState<boolean>(false);
+
+  const onAddFoodItem = () => {
+    if (
+      foodItem.name != "" &&
+      foodItem.quantity != "" &&
+      foodItem.price != ""
+    ) {
+      setFoodList((oldProducts: FoodItem[]) => [...oldProducts, foodItem]);
+    } else {
+      alert("Debe completar todos los campos.");
+    }
+    setModalVisibility(false);
+  };
+
+  const onEditFoodItem = (item: FoodItem) => {
+    setFoodItem(item);
+    setModalVisibility(true);
+  };
+
+  const deleteItem = (id: string) => {
+    const newFoodList = foodList.filter((item) => item.id != id);
+    setFoodList(newFoodList);
+  };
+
+  const onChangeFoodItemStatus = (foodItem: FoodItem) => {
+    foodItem.isInBasket = !foodItem.isInBasket;
+
+    let newBalance = 0;
+    if (foodItem.isInBasket) {
+      newBalance =
+        basketPrice +
+        parseFloat(foodItem.price) * parseFloat(foodItem.quantity);
+    } else {
+      newBalance =
+        basketPrice -
+        parseFloat(foodItem.price) * parseFloat(foodItem.quantity);
+    }
+
+    setBasketPrice(newBalance);
+  };
 
   return (
     <View>
@@ -57,6 +79,7 @@ const foodStore = () => {
                 onPress={() => {
                   {
                     setModalVisibility(true);
+                    setFoodItem(getDefaultFoodItem());
                   }
                 }}
               >
@@ -69,18 +92,34 @@ const foodStore = () => {
           </View>
         </View>
       </View>
-      <View>
-        <FoodList
-          foodList={foodList}
-          setFoodList={setFoodList}
-          basketPrice={basketPrice}
-          setBasketPrice={setBasketPrice}
-        ></FoodList>
-      </View>
+      <ScrollView showsVerticalScrollIndicator={false}>
+        {foodList.length > 0 ? (
+          foodList.map((item) => (
+            <Item
+              key={item.id}
+              foodItem={item}
+              onEditItem={() => onEditFoodItem(item)}
+              onChangeFoodItemStatus={() => onChangeFoodItemStatus(item)}
+              deleteItem={deleteItem}
+            />
+          ))
+        ) : (
+          <Text
+            style={{
+              textAlign: "center",
+              fontWeight: 900,
+            }}
+          >
+            La Lista está vacía
+          </Text>
+        )}
+      </ScrollView>
       <Modal visible={modalVisibility} animationType="slide" transparent>
-        <AddModal
-          setFoodList={setFoodList}
-          setModalVisibility={setModalVisibility}
+        <FoodItemForm
+          foodItem={foodItem}
+          setFoodItem={setFoodItem}
+          addFoodItem={onAddFoodItem}
+          closeModal={() => setModalVisibility(false)}
         />
       </Modal>
     </View>
@@ -96,8 +135,6 @@ const styles = StyleSheet.create({
     paddingBottom: 10,
     gap: 5,
     backgroundColor: "#004080",
-    //justifyContent: "center",
-    //alignContent: "center",
     alignItems: "center",
   },
   titleBox: {},
@@ -126,7 +163,7 @@ const styles = StyleSheet.create({
   },
 });
 
-export default foodStore;
+export default FoodStorePage;
 
 /* 
 4 recuperación y enrtega practica 3 jdbc
