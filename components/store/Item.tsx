@@ -39,12 +39,14 @@ const Item = (props: FoodItemProps) => {
       !isInBasket
     ) {
       return props.setBasketPrice(
-        parseFloat(props.foodItem.price) * parseFloat(props.foodItem.quantity) +
-          props.basketPrice
+        props.basketPrice +
+          parseFloat(props.foodItem.price) * parseFloat(props.foodItem.quantity)
       );
-    } else if (props.basketPrice) {
-      parseFloat(props.foodItem.price) * parseFloat(props.foodItem.quantity) -
-        props.basketPrice;
+    } else if (isInBasket) {
+      props.setBasketPrice(
+        props.basketPrice -
+          parseFloat(props.foodItem.price) * parseFloat(props.foodItem.quantity)
+      );
     }
   };
 
@@ -73,7 +75,11 @@ const Item = (props: FoodItemProps) => {
         </Pressable>
         <Pressable
           style={itemStiles(isInBasket).buttom}
-          onPress={() => props.deleteItem(props.foodItem.id)}
+          onPress={() => {
+            props.deleteItem(props.foodItem.id);
+            setIsInBasket(false);
+            handlerBasket(props);
+          }}
         >
           <Text style={itemStiles(isInBasket).buttonText}>Delete</Text>
         </Pressable>
