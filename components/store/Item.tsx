@@ -16,7 +16,7 @@ const Item = ({
   onChangeFoodItemStatus,
 }: FoodItemProps) => {
   let [isInBasket, setIsInBasket] = useState<boolean>(false);
-
+  //console.log(isInBasket);
   const itemImage = () => {
     switch (foodItem.section) {
       case "carne":
@@ -39,41 +39,41 @@ const Item = ({
   };
 
   return (
-    <View style={itemStiles(isInBasket).mainContainer}>
-      <View style={itemStiles(isInBasket).container}>
-        <Image source={itemImage()} style={itemStiles(isInBasket).image} />
+    <View style={itemStyles(isInBasket).mainContainer}>
+      <View style={itemStyles(isInBasket).container}>
+        <Image source={itemImage()} style={itemStyles(isInBasket).image} />
       </View>
-      <View style={itemStiles(isInBasket).container}>
+      <View style={itemStyles(isInBasket).container}>
         <Text>Nombre: {foodItem.name}</Text>
         <Text>Categoría: {foodItem.section}</Text>
         <Text>Cantidad: {foodItem.quantity}</Text>
         <Text>Precio: {foodItem.price}€</Text>
       </View>
-      <View style={itemStiles(isInBasket).container}>
+      <View style={itemStyles(isInBasket).container}>
         <Pressable
-          style={itemStiles(isInBasket).buttom}
+          style={itemStyles(isInBasket).buttom}
           onPress={onChangeFoodItemStatus}
         >
-          <Text style={itemStiles(isInBasket).buttonText}>Basket</Text>
+          <Text style={itemStyles(isInBasket).buttonText}>Basket</Text>
         </Pressable>
         <Pressable
-          style={itemStiles(isInBasket).buttom}
+          style={itemStyles(isInBasket).buttom}
           onPress={() => {
             deleteItem(foodItem.id);
-            setIsInBasket(false);
+            //foodItem.isInBasket = !foodItem.isInBasket;
+            setIsInBasket(!foodItem.isInBasket);
           }}
         >
-          <Text style={itemStiles(isInBasket).buttonText}>Delete</Text>
+          <Text style={itemStyles(isInBasket).buttonText}>Delete</Text>
         </Pressable>
         <Pressable
-          style={itemStiles(isInBasket).buttom}
+          style={itemStyles(isInBasket).buttom}
           onPress={() => {
             deleteItem(foodItem.id);
-            setIsInBasket(false);
           }}
         >
           <Text
-            style={itemStiles(isInBasket).buttonText}
+            style={itemStyles(isInBasket).buttonText}
             onPress={() => onEditItem(foodItem)}
           >
             Edit
@@ -84,9 +84,8 @@ const Item = ({
   );
 };
 
-function itemStiles(isInBasket: boolean) {
+function itemStyles(isInBasket: boolean) {
   const selectBackgroundColor = "darkseagreen";
-
   const styles = StyleSheet.create({
     mainContainer: {
       display: "flex",

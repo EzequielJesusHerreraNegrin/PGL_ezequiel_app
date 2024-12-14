@@ -26,15 +26,16 @@ const FoodItemForm = ({
   const [selected, setSelected] = React.useState([]);
 
   const categories = [
-    { key: "1", value: "carne" },
-    { key: "2", value: "pescado" },
-    { key: "3", value: "panaderia" },
-    { key: "4", value: "fruta" },
-    { key: "5", value: "verdura" },
-    { key: "6", value: "bebidas" },
-    { key: "7", value: "enlatados" },
-    { key: "8", value: "otros" },
+    { key: "carne", value: "carne" },
+    { key: "pescado", value: "pescado" },
+    { key: "panaderia", value: "panaderia" },
+    { key: "fruta", value: "fruta" },
+    { key: "verdura", value: "verdura" },
+    { key: "bebidas", value: "bebidas" },
+    { key: "enlatados", value: "enlatados" },
+    { key: "otros", value: "otros" },
   ];
+  console.log(selected);
 
   return (
     <View style={styles.container}>
@@ -57,7 +58,7 @@ const FoodItemForm = ({
           dropdownStyles={{ borderColor: "black" }}
           maxHeight={120}
           onSelect={() => setFoodItem({ ...foodItem, section: selected })}
-          defaultOption={{ key: "8", value: "otros" }}
+          defaultOption={{ key: "otros", value: "otros" }}
         ></SelectList>
         <TextInput
           placeholder="cantidad"

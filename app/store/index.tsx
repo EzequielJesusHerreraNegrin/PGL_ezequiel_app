@@ -19,17 +19,30 @@ const FoodStorePage = () => {
   let [modalVisibility, setModalVisibility] = useState<boolean>(false);
 
   const onAddFoodItem = () => {
+    const index = foodList.findIndex((product) => product.id === foodItem.id);
+    setFoodList(foodList.filter((food) => food.id !== foodItem.id));
     if (
       foodItem.name != "" &&
       foodItem.quantity != "" &&
       foodItem.price != ""
     ) {
-      setFoodList((oldProducts: FoodItem[]) => [...oldProducts, foodItem]);
+      //console.log(index);
+
+      setFoodList((oldProducts: FoodItem[]) =>
+        index >= 0
+          ? [
+              ...oldProducts.slice(0, index),
+              foodItem,
+              ...oldProducts.slice(index),
+            ]
+          : [...oldProducts, foodItem]
+      );
     } else {
       alert("Debe completar todos los campos.");
     }
     setModalVisibility(false);
   };
+  //foodList.forEach((food) => console.log(food));
 
   const onEditFoodItem = (item: FoodItem) => {
     setFoodItem(item);
@@ -43,7 +56,7 @@ const FoodStorePage = () => {
 
   const onChangeFoodItemStatus = (foodItem: FoodItem) => {
     foodItem.isInBasket = !foodItem.isInBasket;
-
+    //console.log(foodItem.isInBasket);
     let newBalance = 0;
     if (foodItem.isInBasket) {
       newBalance =
@@ -127,8 +140,12 @@ const FoodStorePage = () => {
 };
 
 const styles = StyleSheet.create({
+  container: {
+    //flex: 1,
+  },
   header: {
     display: "flex",
+    //flex: 1,
     flexDirection: "column",
     textAlign: "center",
     paddingTop: 10,
