@@ -1,50 +1,83 @@
 import React, { useState } from "react";
-import { Text, View, StyleSheet, Pressable, Modal } from "react-native";
-import { foodItem } from "../../types/AppTypes";
-import FoodList from "../../components/store/FoodList";
-import AddModal from "../../components/store/AddModal";
+import {
+  Text,
+  View,
+  StyleSheet,
+  Pressable,
+  Modal,
+  ScrollView,
+} from "react-native";
+import { FoodItem } from "../../types/AppTypes";
+import FoodItemForm from "../../components/store/FoodItemForm";
+import { foodItems, getDefaultFoodItem } from "../../data/foodItems";
+import Item from "../../components/store/Item";
 
-const foodStore = () => {
-  let items: foodItem[] = [
-    {
-      id: "0",
-      isInBasket: false,
-      name: "Hola",
-      price: "12.56",
-      quantity: "2",
-      section: "carne",
-    },
-    {
-      id: "1",
-      isInBasket: false,
-      name: "Chuleta de Cerdo",
-      price: "35.56",
-      quantity: "2",
-      section: "otros",
-    },
-    {
-      id: "2",
-      isInBasket: false,
-      name: "Chuleta de Cerdo",
-      price: "20.56",
-      quantity: "2",
-      section: "pescado",
-    },
-  ];
-
-  let [foodList, setFoodList] = useState<foodItem[]>(items);
+const FoodStorePage = () => {
+  let [foodItem, setFoodItem] = useState<FoodItem>(getDefaultFoodItem());
+  let [foodList, setFoodList] = useState<FoodItem[]>(foodItems);
   let [basketPrice, setBasketPrice] = useState<number>(0);
   let [modalVisibility, setModalVisibility] = useState<boolean>(false);
+
+  const onAddFoodItem = () => {
+    const index = foodList.findIndex((product) => product.id === foodItem.id);
+    setFoodList(foodList.filter((food) => food.id !== foodItem.id));
+    if (
+      foodItem.name != "" &&
+      foodItem.quantity != "" &&
+      foodItem.price != ""
+    ) {
+      setFoodList((oldProducts: FoodItem[]) =>
+        index >= 0
+          ? [
+              ...oldProducts.slice(0, index),
+              foodItem,
+              ...oldProducts.slice(index),
+            ]
+          : [...oldProducts, foodItem]
+      );
+    } else {
+      alert("Debe completar todos los campos.");
+    }
+    setModalVisibility(false);
+  };
+
+  const onEditFoodItem = (item: FoodItem) => {
+    setFoodItem(item);
+    setModalVisibility(true);
+  };
+
+  const deleteItem = (id: string) => {
+    const newFoodList = foodList.filter((item) => item.id != id);
+    setFoodList(newFoodList);
+  };
+
+  const onChangeFoodItemStatus = (foodItem: FoodItem) => {
+    foodItem.isInBasket = !foodItem.isInBasket;
+    let newBalance = 0;
+    if (foodItem.isInBasket) {
+      newBalance =
+        basketPrice +
+        parseFloat(foodItem.price) * parseFloat(foodItem.quantity);
+    } else {
+      newBalance =
+        basketPrice -
+        parseFloat(foodItem.price) * parseFloat(foodItem.quantity);
+    }
+
+    setBasketPrice(newBalance);
+  };
 
   return (
     <View>
       <View style={styles.header}>
-        <View style={styles.titleBox}>
-          <Text>LISTA DE LA COMPRA</Text>
+        <View>
+          <Text style={styles.title}>LISTA DE LA COMPRA</Text>
         </View>
         <View style={styles.headerOptionsBox}>
           <View style={styles.priceDisplayBox}>
-            <Text>Total Price: {Math.round(basketPrice * 100) / 100}€</Text>
+            <Text style={styles.headerPriceText}>
+              Total Price: {Math.round(basketPrice * 100) / 100}€
+            </Text>
           </View>
           <View style={styles.butttonBox}>
             <Pressable style={styles.buttom}>
@@ -53,6 +86,7 @@ const foodStore = () => {
                 onPress={() => {
                   {
                     setModalVisibility(true);
+                    setFoodItem(getDefaultFoodItem());
                   }
                 }}
               >
@@ -65,18 +99,34 @@ const foodStore = () => {
           </View>
         </View>
       </View>
-      <View>
-        <FoodList
-          foodList={foodList}
-          setFoodList={setFoodList}
-          basketPrice={basketPrice}
-          setBasketPrice={setBasketPrice}
-        ></FoodList>
-      </View>
+      <ScrollView showsVerticalScrollIndicator={false}>
+        {foodList.length > 0 ? (
+          foodList.map((item) => (
+            <Item
+              key={item.id}
+              foodItem={item}
+              onEditItem={() => onEditFoodItem(item)}
+              onChangeFoodItemStatus={() => onChangeFoodItemStatus(item)}
+              deleteItem={deleteItem}
+            />
+          ))
+        ) : (
+          <Text
+            style={{
+              textAlign: "center",
+              fontWeight: 900,
+            }}
+          >
+            La Lista está vacía
+          </Text>
+        )}
+      </ScrollView>
       <Modal visible={modalVisibility} animationType="slide" transparent>
-        <AddModal
-          setFoodList={setFoodList}
-          setModalVisibility={setModalVisibility}
+        <FoodItemForm
+          foodItem={foodItem}
+          setFoodItem={setFoodItem}
+          addFoodItem={onAddFoodItem}
+          closeModal={() => setModalVisibility(false)}
         />
       </Modal>
     </View>
@@ -84,19 +134,28 @@ const foodStore = () => {
 };
 
 const styles = StyleSheet.create({
+  container: {
+    //flex: 1,
+  },
   header: {
     display: "flex",
+    //flex: 1,
     flexDirection: "column",
     textAlign: "center",
     paddingTop: 10,
     paddingBottom: 10,
     gap: 5,
-    backgroundColor: "cyan",
-    //justifyContent: "center",
-    //alignContent: "center",
+    backgroundColor: "#004080",
     alignItems: "center",
   },
-  titleBox: {},
+  title: {
+    fontWeight: 800,
+    color: "white",
+  },
+  headerPriceText: {
+    fontWeight: 800,
+    color: "white",
+  },
   priceDisplayBox: {
     justifyContent: "center",
   },
@@ -122,7 +181,7 @@ const styles = StyleSheet.create({
   },
 });
 
-export default foodStore;
+export default FoodStorePage;
 
 /* 
 4 recuperación y enrtega practica 3 jdbc

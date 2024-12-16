@@ -20,6 +20,8 @@ function WelcomePage() {
             <Link href="/porfolio" style={styleSheet.linkText}>
               NAVEGAR
             </Link>
+          </View>
+          <View style={styleSheet.linkBox}>
             <Link href="/store" style={styleSheet.linkText}>
               STORE
             </Link>
@@ -51,7 +53,7 @@ const styleSheet = StyleSheet.create({
   bodyBox: {
     flexDirection: "column",
     flex: 5,
-    gap: 150,
+    gap: 100,
     alignItems: "center",
   },
   imageStyle: {

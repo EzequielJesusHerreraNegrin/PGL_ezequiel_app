@@ -1,18 +1,23 @@
 import { StyleSheet, Text, View, Image, Button, Pressable } from "react-native";
-import { foodItem } from "../../types/AppTypes";
+import { FoodItem } from "../../types/AppTypes";
 import React, { useState } from "react";
 
 type FoodItemProps = {
-  foodItem: foodItem;
-  setBasketPrice: Function;
-  basketPrice: number;
+  foodItem: FoodItem;
+  onChangeFoodItemStatus: () => void;
+  onEditItem: (foodItem: FoodItem) => void;
   deleteItem: Function;
 };
 
-const Item = (props: FoodItemProps) => {
+const Item = ({
+  foodItem,
+  deleteItem,
+  onEditItem,
+  onChangeFoodItemStatus,
+}: FoodItemProps) => {
   let [isInBasket, setIsInBasket] = useState<boolean>(false);
   const itemImage = () => {
-    switch (props.foodItem.section) {
+    switch (foodItem.section) {
       case "carne":
         return require("../../assets/storeImages/carne.png");
       case "pescado":
@@ -31,60 +36,57 @@ const Item = (props: FoodItemProps) => {
         return require("../../assets/storeImages/otros.png");
     }
   };
-  const handlerBasket = (props: FoodItemProps) => {
-    setIsInBasket(!isInBasket);
-    if (
-      props.setBasketPrice != null &&
-      props.basketPrice != null &&
-      !isInBasket
-    ) {
-      return props.setBasketPrice(
-        parseFloat(props.foodItem.price) * parseFloat(props.foodItem.quantity) +
-          props.basketPrice
-      );
-    } else if (props.basketPrice) {
-      parseFloat(props.foodItem.price) * parseFloat(props.foodItem.quantity) -
-        props.basketPrice;
-    }
-  };
-
-  //console.log(props.isInBasket);
 
   return (
-    <View style={itemStiles(isInBasket).mainContainer}>
-      <View style={itemStiles(isInBasket).container}>
-        <Image source={itemImage()} style={itemStiles(isInBasket).image} />
+    <View style={itemStyles(foodItem.isInBasket).mainContainer}>
+      <View style={itemStyles(foodItem.isInBasket).container}>
+        <Image
+          source={itemImage()}
+          style={itemStyles(foodItem.isInBasket).image}
+        />
       </View>
-      <View style={itemStiles(isInBasket).container}>
-        <Text>Nombre: {props.foodItem.name}</Text>
-        <Text>Categoría: {props.foodItem.section}</Text>
-        <Text>Cantidad: {props.foodItem.quantity}</Text>
-        <Text>Precio: {props.foodItem.price}€</Text>
+      <View style={itemStyles(foodItem.isInBasket).container}>
+        <Text>Nombre: {foodItem.name}</Text>
+        <Text>Categoría: {foodItem.section}</Text>
+        <Text>Cantidad: {foodItem.quantity}</Text>
+        <Text>Precio: {foodItem.price}€</Text>
       </View>
-      <View style={itemStiles(isInBasket).container}>
+      <View style={itemStyles(foodItem.isInBasket).container}>
         <Pressable
-          style={itemStiles(isInBasket).buttom}
-          onPress={() => {
-            handlerBasket(props);
-            //props.setIsInBasket(!props.isInBasket);
-          }}
+          style={itemStyles(foodItem.isInBasket).buttom}
+          onPress={onChangeFoodItemStatus}
         >
-          <Text style={itemStiles(isInBasket).buttonText}>Basket</Text>
+          <Text style={itemStyles(foodItem.isInBasket).buttonText}>Basket</Text>
         </Pressable>
         <Pressable
-          style={itemStiles(isInBasket).buttom}
-          onPress={() => props.deleteItem(props.foodItem.id)}
+          style={itemStyles(foodItem.isInBasket).buttom}
+          onPress={() => {
+            deleteItem(foodItem.id);
+            setIsInBasket(!foodItem.isInBasket);
+          }}
         >
-          <Text style={itemStiles(isInBasket).buttonText}>Delete</Text>
+          <Text style={itemStyles(isInBasket).buttonText}>Delete</Text>
+        </Pressable>
+        <Pressable
+          style={itemStyles(isInBasket).buttom}
+          onPress={() => {
+            deleteItem(foodItem.id);
+          }}
+        >
+          <Text
+            style={itemStyles(isInBasket).buttonText}
+            onPress={() => onEditItem(foodItem)}
+          >
+            Edit
+          </Text>
         </Pressable>
       </View>
     </View>
   );
 };
 
-function itemStiles(isInBasket: boolean) {
+function itemStyles(isInBasket: boolean) {
   const selectBackgroundColor = "darkseagreen";
-
   const styles = StyleSheet.create({
     mainContainer: {
       display: "flex",
@@ -103,8 +105,8 @@ function itemStiles(isInBasket: boolean) {
       alignItems: "center",
     },
     buttonText: {
-      margin: "auto",
-      left: "5%",
+      textAlign: "center",
+      marginTop: "25%",
     },
     image: {
       width: 100,
