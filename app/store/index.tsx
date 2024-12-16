@@ -26,8 +26,6 @@ const FoodStorePage = () => {
       foodItem.quantity != "" &&
       foodItem.price != ""
     ) {
-      //console.log(index);
-
       setFoodList((oldProducts: FoodItem[]) =>
         index >= 0
           ? [
@@ -42,7 +40,6 @@ const FoodStorePage = () => {
     }
     setModalVisibility(false);
   };
-  //foodList.forEach((food) => console.log(food));
 
   const onEditFoodItem = (item: FoodItem) => {
     setFoodItem(item);
@@ -56,7 +53,6 @@ const FoodStorePage = () => {
 
   const onChangeFoodItemStatus = (foodItem: FoodItem) => {
     foodItem.isInBasket = !foodItem.isInBasket;
-    //console.log(foodItem.isInBasket);
     let newBalance = 0;
     if (foodItem.isInBasket) {
       newBalance =
@@ -74,14 +70,12 @@ const FoodStorePage = () => {
   return (
     <View>
       <View style={styles.header}>
-        <View style={styles.titleBox}>
-          <Text style={{ fontWeight: 800, color: "white" }}>
-            LISTA DE LA COMPRA
-          </Text>
+        <View>
+          <Text style={styles.title}>LISTA DE LA COMPRA</Text>
         </View>
         <View style={styles.headerOptionsBox}>
           <View style={styles.priceDisplayBox}>
-            <Text style={{ fontWeight: 500, color: "white" }}>
+            <Text style={styles.headerPriceText}>
               Total Price: {Math.round(basketPrice * 100) / 100}€
             </Text>
           </View>
@@ -154,7 +148,14 @@ const styles = StyleSheet.create({
     backgroundColor: "#004080",
     alignItems: "center",
   },
-  titleBox: {},
+  title: {
+    fontWeight: 800,
+    color: "white",
+  },
+  headerPriceText: {
+    fontWeight: 800,
+    color: "white",
+  },
   priceDisplayBox: {
     justifyContent: "center",
   },

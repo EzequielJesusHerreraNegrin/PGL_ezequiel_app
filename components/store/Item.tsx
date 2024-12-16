@@ -16,7 +16,6 @@ const Item = ({
   onChangeFoodItemStatus,
 }: FoodItemProps) => {
   let [isInBasket, setIsInBasket] = useState<boolean>(false);
-  //console.log(isInBasket);
   const itemImage = () => {
     switch (foodItem.section) {
       case "carne":
@@ -39,28 +38,30 @@ const Item = ({
   };
 
   return (
-    <View style={itemStyles(isInBasket).mainContainer}>
-      <View style={itemStyles(isInBasket).container}>
-        <Image source={itemImage()} style={itemStyles(isInBasket).image} />
+    <View style={itemStyles(foodItem.isInBasket).mainContainer}>
+      <View style={itemStyles(foodItem.isInBasket).container}>
+        <Image
+          source={itemImage()}
+          style={itemStyles(foodItem.isInBasket).image}
+        />
       </View>
-      <View style={itemStyles(isInBasket).container}>
+      <View style={itemStyles(foodItem.isInBasket).container}>
         <Text>Nombre: {foodItem.name}</Text>
         <Text>Categoría: {foodItem.section}</Text>
         <Text>Cantidad: {foodItem.quantity}</Text>
         <Text>Precio: {foodItem.price}€</Text>
       </View>
-      <View style={itemStyles(isInBasket).container}>
+      <View style={itemStyles(foodItem.isInBasket).container}>
         <Pressable
-          style={itemStyles(isInBasket).buttom}
+          style={itemStyles(foodItem.isInBasket).buttom}
           onPress={onChangeFoodItemStatus}
         >
-          <Text style={itemStyles(isInBasket).buttonText}>Basket</Text>
+          <Text style={itemStyles(foodItem.isInBasket).buttonText}>Basket</Text>
         </Pressable>
         <Pressable
-          style={itemStyles(isInBasket).buttom}
+          style={itemStyles(foodItem.isInBasket).buttom}
           onPress={() => {
             deleteItem(foodItem.id);
-            //foodItem.isInBasket = !foodItem.isInBasket;
             setIsInBasket(!foodItem.isInBasket);
           }}
         >
@@ -104,8 +105,8 @@ function itemStyles(isInBasket: boolean) {
       alignItems: "center",
     },
     buttonText: {
-      margin: "auto",
-      left: "5%",
+      textAlign: "center",
+      marginTop: "25%",
     },
     image: {
       width: 100,

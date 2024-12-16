@@ -1,12 +1,5 @@
-import {
-  Alert,
-  Pressable,
-  StyleSheet,
-  Text,
-  TextInput,
-  View,
-} from "react-native";
-import React, { useState } from "react";
+import { Pressable, StyleSheet, Text, TextInput, View } from "react-native";
+import React from "react";
 import { FoodItem } from "../../types/AppTypes";
 import { SelectList } from "react-native-dropdown-select-list";
 
@@ -35,7 +28,6 @@ const FoodItemForm = ({
     { key: "enlatados", value: "enlatados" },
     { key: "otros", value: "otros" },
   ];
-  console.log(selected);
 
   return (
     <View style={styles.container}>
@@ -76,18 +68,10 @@ const FoodItemForm = ({
         ></TextInput>
         <View style={styles.formButtomBox}>
           <Pressable style={styles.formButtons} onPress={addFoodItem}>
-            <Text
-              style={{ margin: "auto", textAlign: "center", color: "white" }}
-            >
-              Crear
-            </Text>
+            <Text style={styles.buttontext}>Crear</Text>
           </Pressable>
           <Pressable style={styles.formButtons} onPress={closeModal}>
-            <Text
-              style={{ margin: "auto", textAlign: "center", color: "white" }}
-            >
-              Cancelar
-            </Text>
+            <Text style={styles.buttontext}>Cancelar</Text>
           </Pressable>
         </View>
       </View>
@@ -133,5 +117,10 @@ const styles = StyleSheet.create({
     top: 10,
     gap: 15,
     alignItems: "center",
+  },
+  buttontext: {
+    margin: "auto",
+    textAlign: "center",
+    color: "white",
   },
 });
