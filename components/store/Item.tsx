@@ -15,7 +15,6 @@ const Item = ({
   onEditItem,
   onChangeFoodItemStatus,
 }: FoodItemProps) => {
-  let [isInBasket, setIsInBasket] = useState<boolean>(false);
   const itemImage = () => {
     switch (foodItem.section) {
       case "carne":
@@ -62,19 +61,18 @@ const Item = ({
           style={itemStyles(foodItem.isInBasket).buttom}
           onPress={() => {
             deleteItem(foodItem.id);
-            setIsInBasket(!foodItem.isInBasket);
           }}
         >
-          <Text style={itemStyles(isInBasket).buttonText}>Delete</Text>
+          <Text style={itemStyles(foodItem.isInBasket).buttonText}>Delete</Text>
         </Pressable>
         <Pressable
-          style={itemStyles(isInBasket).buttom}
+          style={itemStyles(foodItem.isInBasket).buttom}
           onPress={() => {
             deleteItem(foodItem.id);
           }}
         >
           <Text
-            style={itemStyles(isInBasket).buttonText}
+            style={itemStyles(foodItem.isInBasket).buttonText}
             onPress={() => onEditItem(foodItem)}
           >
             Edit

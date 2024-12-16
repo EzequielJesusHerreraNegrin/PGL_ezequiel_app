@@ -40,7 +40,6 @@ const FoodItemForm = ({
           value={foodItem.name}
           onChangeText={(text) => setFoodItem({ ...foodItem, name: text })}
           style={styles.inputStyle}
-          //defaultValue={props.editItem.name == "" ? foodItem.name : props.editItem.name }
         ></TextInput>
         <SelectList
           setSelected={(val: React.SetStateAction<never[]>) => setSelected(val)}
