@@ -7,10 +7,10 @@ import {
   Modal,
   ScrollView,
 } from "react-native";
-import { FoodItem } from "../../types/AppTypes";
-import FoodItemForm from "../../components/store/FoodItemForm";
-import { foodItems, getDefaultFoodItem } from "../../data/foodItems";
-import Item from "../../components/store/Item";
+import { FoodItem } from "../../../types/AppTypes";
+import FoodItemForm from "../../../components/store/FoodItemForm";
+import { foodItems, getDefaultFoodItem } from "../../../data/foodItems";
+import Item from "../../../components/store/Item";
 
 const FoodStorePage = () => {
   let [foodItem, setFoodItem] = useState<FoodItem>(getDefaultFoodItem());

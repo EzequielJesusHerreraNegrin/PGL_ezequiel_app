@@ -14,7 +14,7 @@ const Drawer = createDrawerNavigator();
 
 function WelcomePage() {
   return (
-    <ImageBackground source={require("../../assets/beachGif.gif")}>
+    <ImageBackground source={require("../../../assets/beachGif.gif")}>
       <View style={styleSheet.container}>
         <View style={styleSheet.headerBox}>
           <Text style={styleSheet.headerTitle}>Bienvenido a mi App</Text>
@@ -22,7 +22,7 @@ function WelcomePage() {
         <View style={styleSheet.bodyBox}>
           <View>
             <Image
-              source={require("../../assets/mySelfWelcome.png")}
+              source={require("../../../assets/mySelfWelcome.png")}
               style={styleSheet.imageStyle}
             />
           </View>

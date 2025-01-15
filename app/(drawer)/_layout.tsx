@@ -6,7 +6,7 @@ export const AppLayout = () => {
     <GestureHandlerRootView style={{ flex: 1 }}>
       <Drawer>
         <Drawer.Screen
-          name="index" // This is the name of the page and must match the url from root
+          name="welcome/index" // This is the name of the page and must match the url from root
           options={{
             drawerLabel: "Home",
             title: "Bienbenido",

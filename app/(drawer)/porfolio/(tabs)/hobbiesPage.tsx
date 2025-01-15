@@ -1,5 +1,5 @@
 import React from "react";
-import Hobbies from "../../../components/hobbies/Hobbies";
+import Hobbies from "../../../../components/hobbies/Hobbies";
 import { View, StyleSheet } from "react-native";
 
 const hobbiesPage = () => {
