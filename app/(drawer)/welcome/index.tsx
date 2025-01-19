@@ -1,10 +1,20 @@
 import { Link } from "expo-router";
 import React from "react";
-import { Text, View, StyleSheet, Image, ImageBackground } from "react-native";
+import {
+  Text,
+  View,
+  StyleSheet,
+  Image,
+  ImageBackground,
+  Pressable,
+} from "react-native";
+import { createDrawerNavigator } from "@react-navigation/drawer";
+
+const Drawer = createDrawerNavigator();
 
 function WelcomePage() {
   return (
-    <ImageBackground source={require("../../assets/beachGif.gif")}>
+    <ImageBackground source={require("../../../assets/beachGif.gif")}>
       <View style={styleSheet.container}>
         <View style={styleSheet.headerBox}>
           <Text style={styleSheet.headerTitle}>Bienvenido a mi App</Text>
@@ -12,19 +22,9 @@ function WelcomePage() {
         <View style={styleSheet.bodyBox}>
           <View>
             <Image
-              source={require("../../assets/mySelfWelcome.png")}
+              source={require("../../../assets/mySelfWelcome.png")}
               style={styleSheet.imageStyle}
             />
-          </View>
-          <View style={styleSheet.linkBox}>
-            <Link href="/porfolio" style={styleSheet.linkText}>
-              NAVEGAR
-            </Link>
-          </View>
-          <View style={styleSheet.linkBox}>
-            <Link href="/store" style={styleSheet.linkText}>
-              STORE
-            </Link>
           </View>
         </View>
       </View>

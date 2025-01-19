@@ -1,6 +1,6 @@
 import React from "react";
 import { View, StyleSheet } from "react-native";
-import QRdisplay from "../../../components/qrDisplay/QRDisplay";
+import QRdisplay from "../../../../components/qrDisplay/QRDisplay";
 
 const samplePage = () => {
   return (
