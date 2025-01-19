@@ -1,16 +1,5 @@
-import { Link } from "expo-router";
 import React from "react";
-import {
-  Text,
-  View,
-  StyleSheet,
-  Image,
-  ImageBackground,
-  Pressable,
-} from "react-native";
-import { createDrawerNavigator } from "@react-navigation/drawer";
-
-const Drawer = createDrawerNavigator();
+import { Text, View, StyleSheet, Image, ImageBackground } from "react-native";
 
 function WelcomePage() {
   return (
