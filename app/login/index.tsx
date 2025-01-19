@@ -4,13 +4,44 @@ import {
   StyleSheet,
   Text,
   TextInput,
+  TouchableOpacity,
   View,
 } from "react-native";
-import React from "react";
+import React, { useState } from "react";
+import { LoginFields } from "../../types/AppTypes";
+import ToastManager, { Toast } from "toastify-react-native";
 
 const index = () => {
+  const [input, setInput] = useState<LoginFields>({
+    email: "",
+    password: "",
+  });
+
+  let showToast = () => {
+    Toast.error(
+      "Credenciales incorrectas, por favor introduzca una email válido y una contraseña de más de 7 caracteres.",
+      "bottom"
+    );
+  };
+
+  const handleSubmit = () => {
+    let isValid = false;
+    if (
+      input.email.endsWith("@gmail.com") &&
+      input.email.length > 10 &&
+      input.password.length > 7
+    ) {
+      console.log("input");
+      isValid = true;
+    } else {
+      isValid = false;
+    }
+    return isValid;
+  };
+
   return (
     <ImageBackground source={require("../../assets/beachGif.gif")}>
+      <ToastManager />
       <View style={styles.container}>
         <View style={styles.loginBox}>
           <Text style={styles.sreenTitle}>Iniciar Sesión</Text>
@@ -20,6 +51,9 @@ const index = () => {
                 <Text style={styles.fieldBox}>Email</Text>
                 <TextInput
                   placeholder="ejemplo@gmail.com"
+                  keyboardType="email-address"
+                  value={input.email}
+                  onChangeText={(text) => setInput({ ...input, email: text })}
                   style={styles.intputField}
                 ></TextInput>
               </View>
@@ -27,11 +61,23 @@ const index = () => {
                 <Text style={styles.fieldBox}>Contraseña</Text>
                 <TextInput
                   placeholder="xxxxxxxx"
+                  secureTextEntry={true}
+                  value={input.password}
+                  onChangeText={(text) =>
+                    setInput({ ...input, password: text })
+                  }
                   style={styles.intputField}
                 ></TextInput>
               </View>
             </View>
-            <Button title="Enviar"></Button>
+            <Button
+              title="Enviar"
+              onPress={() =>
+                handleSubmit()
+                  ? Toast.success("Inicio de sesión exitoso.")
+                  : Toast.error("Credenciales incorrectas.", "top")
+              }
+            ></Button>
           </View>
           <View style={styles.registerOptionBox}>
             <Text style={styles.registerText}>¿No te has registrado?</Text>
@@ -93,6 +139,7 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     marginTop: 5,
     backgroundColor: "white",
+    padding: 10,
   },
   registerOptionBox: {
     height: 150,
@@ -110,5 +157,11 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: 500,
     textAlign: "center",
+  },
+  toastContainer: {
+    flex: 1,
+    backgroundColor: "black",
+    alignItems: "center",
+    justifyContent: "center",
   },
 });

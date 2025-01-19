@@ -21,7 +21,8 @@
     "react-native-reanimated": "~3.16.1",
     "react-native-select-dropdown": "^4.0.1",
     "react-native-svg": "^15.9.0",
-    "react-native-uuid": "^2.0.3"
+    "react-native-uuid": "^2.0.3",
+    "toastify-react-native": "^5.0.3"
   },
   "devDependencies": {
     "@babel/core": "^7.25.2",
