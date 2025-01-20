@@ -8,3 +8,8 @@ export type FoodItem = {
   section: string;
   isInBasket: boolean;
 };
+
+export type LoginFields = {
+  email: string;
+  password: string;
+};
