@@ -13,3 +13,9 @@ export type LoginFields = {
   email: string;
   password: string;
 };
+
+export type registerFields = {
+  email: string;
+  name: string;
+  password: string;
+};

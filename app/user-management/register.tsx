@@ -1,43 +1,29 @@
+import React, { useState } from "react";
 import {
   Button,
   ImageBackground,
-  StyleSheet,
   Text,
   TextInput,
   View,
+  StyleSheet,
 } from "react-native";
-import React, { useState } from "react";
-import { LoginFields } from "../../types/AppTypes";
-import ToastManager, { Toast } from "toastify-react-native";
+import ToastManager from "toastify-react-native";
+import { LoginFields, registerFields } from "../../types/AppTypes";
 import { Link } from "expo-router";
 
-const login = () => {
-  const [input, setInput] = useState<LoginFields>({
+const register = () => {
+  const [input, setInput] = useState<registerFields>({
     email: "",
+    name: "",
     password: "",
   });
-
-  const handleSubmit = () => {
-    let isValid = false;
-    if (
-      input.email.endsWith("@gmail.com") &&
-      input.email.length > 10 &&
-      input.password.length > 7
-    ) {
-      console.log("input");
-      isValid = true;
-    } else {
-      isValid = false;
-    }
-    return isValid;
-  };
 
   return (
     <ImageBackground source={require("../../assets/beachGif.gif")}>
       <ToastManager textStyle={styles.toastContainer}></ToastManager>
       <View style={styles.container}>
         <View style={styles.loginBox}>
-          <Text style={styles.sreenTitle}>Iniciar Sesión</Text>
+          <Text style={styles.sreenTitle}>Crear Cuenta</Text>
           <View style={styles.loginForm}>
             <View style={styles.fieldGroup}>
               <View style={styles.fieldBox}>
@@ -47,6 +33,15 @@ const login = () => {
                   keyboardType="email-address"
                   value={input.email}
                   onChangeText={(text) => setInput({ ...input, email: text })}
+                  style={styles.intputField}
+                ></TextInput>
+              </View>
+              <View style={styles.fieldBox}>
+                <Text style={styles.fieldBox}>Nombre</Text>
+                <TextInput
+                  placeholder="nombre"
+                  value={input.name}
+                  onChangeText={(text) => setInput({ ...input, name: text })}
                   style={styles.intputField}
                 ></TextInput>
               </View>
@@ -63,28 +58,21 @@ const login = () => {
                 ></TextInput>
               </View>
             </View>
-            <Button
-              title="Enviar"
-              onPress={() =>
-                handleSubmit()
-                  ? Toast.success("Inicio de sesión exitoso.")
-                  : Toast.error("Credenciales incorrectas.", "top")
-              }
-            ></Button>
-          </View>
-          <View style={styles.registerOptionBox}>
-            <Text style={styles.registerText}>¿No te has registrado?</Text>
-            <Link href="user-management/register" style={styles.registerButton}>
-              REGISTRARME
-            </Link>
+            <View style={styles.buttonBox}>
+              <Button title="Enviar"></Button>
+              <Link
+                href="user-management/login"
+                style={styles.backToLoginButton}
+              >
+                CANCELAR
+              </Link>
+            </View>
           </View>
         </View>
       </View>
     </ImageBackground>
   );
 };
-
-export default login;
 
 const styles = StyleSheet.create({
   container: {
@@ -109,8 +97,9 @@ const styles = StyleSheet.create({
     backgroundColor: "white",
   },
   loginForm: {
-    height: 300,
+    height: 450,
     width: 300,
+    flexDirection: "column",
     backgroundColor: "#e0e1e1",
     padding: 30,
     margin: 10,
@@ -119,8 +108,12 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     gap: 40,
   },
+  buttonBox: {
+    gap: 20,
+    marginTop: 20,
+  },
   fieldGroup: {
-    height: 150,
+    height: "60%",
     width: "100%",
     gap: 30,
     alignItems: "flex-start",
@@ -156,12 +149,16 @@ const styles = StyleSheet.create({
   toastContainer: {
     fontSize: 18,
   },
-  registerButton: {
+  backToLoginButton: {
     width: "100%",
     backgroundColor: "#2894f4",
     textAlign: "center",
     color: "white",
     fontWeight: 500,
-    padding: 5,
+    padding: 8,
+    shadowColor: "back",
+    shadowRadius: 10,
   },
 });
+
+export default register;
