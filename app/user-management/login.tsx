@@ -151,6 +151,6 @@ const styles = StyleSheet.create({
     textAlign: "center",
   },
   toastContainer: {
-    fontSize: 10,
+    fontSize: 18,
   },
 });
