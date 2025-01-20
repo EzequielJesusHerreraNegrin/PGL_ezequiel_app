@@ -4,7 +4,6 @@ import {
   StyleSheet,
   Text,
   TextInput,
-  TouchableOpacity,
   View,
 } from "react-native";
 import React, { useState } from "react";
@@ -16,13 +15,6 @@ const index = () => {
     email: "",
     password: "",
   });
-
-  let showToast = () => {
-    Toast.error(
-      "Credenciales incorrectas, por favor introduzca una email válido y una contraseña de más de 7 caracteres.",
-      "bottom"
-    );
-  };
 
   const handleSubmit = () => {
     let isValid = false;
@@ -41,7 +33,7 @@ const index = () => {
 
   return (
     <ImageBackground source={require("../../assets/beachGif.gif")}>
-      <ToastManager />
+      <ToastManager textStyle={styles.toastContainer}></ToastManager>
       <View style={styles.container}>
         <View style={styles.loginBox}>
           <Text style={styles.sreenTitle}>Iniciar Sesión</Text>
@@ -159,9 +151,6 @@ const styles = StyleSheet.create({
     textAlign: "center",
   },
   toastContainer: {
-    flex: 1,
-    backgroundColor: "black",
-    alignItems: "center",
-    justifyContent: "center",
+    fontSize: 10,
   },
 });
