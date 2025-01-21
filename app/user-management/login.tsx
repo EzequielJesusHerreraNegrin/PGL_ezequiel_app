@@ -9,7 +9,9 @@ import {
 import React, { useState } from "react";
 import { LoginFields } from "../../types/AppTypes";
 import ToastManager, { Toast } from "toastify-react-native";
-import { Link } from "expo-router";
+import { Link, router } from "expo-router";
+import { user_service_functions } from "../../services/user-service";
+import { storage_functions } from "../../services/asyncStorageService";
 
 const login = () => {
   const [input, setInput] = useState<LoginFields>({
@@ -18,18 +20,22 @@ const login = () => {
   });
 
   const handleSubmit = () => {
-    let isValid = false;
     if (
       input.email.endsWith("@gmail.com") &&
       input.email.length > 10 &&
       input.password.length > 7
     ) {
-      console.log("input");
-      isValid = true;
+      const token = user_service_functions.logUser(input.email, input.password);
+      if (token != null) {
+        storage_functions.save(storage_functions.KEY.register, token);
+        Toast.success("Inicio de sesión exitoso.");
+        router.navigate("/welcome");
+      } else {
+        Toast.error("Usuario no registrado.");
+      }
     } else {
-      isValid = false;
+      Toast.error("Credenciales incorrectas.");
     }
-    return isValid;
   };
 
   return (
@@ -63,14 +69,7 @@ const login = () => {
                 ></TextInput>
               </View>
             </View>
-            <Button
-              title="Enviar"
-              onPress={() =>
-                handleSubmit()
-                  ? Toast.success("Inicio de sesión exitoso.")
-                  : Toast.error("Credenciales incorrectas.", "top")
-              }
-            ></Button>
+            <Button title="Enviar" onPress={() => handleSubmit()}></Button>
           </View>
           <View style={styles.registerOptionBox}>
             <Text style={styles.registerText}>¿No te has registrado?</Text>

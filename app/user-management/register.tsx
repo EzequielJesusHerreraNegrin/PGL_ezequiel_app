@@ -7,9 +7,12 @@ import {
   View,
   StyleSheet,
 } from "react-native";
-import ToastManager from "toastify-react-native";
+import ToastManager, { Toast } from "toastify-react-native";
 import { LoginFields, registerFields } from "../../types/AppTypes";
-import { Link } from "expo-router";
+import { Link, Redirect, router } from "expo-router";
+import { user_service_functions } from "../../services/user-service";
+import { storage_functions } from "../../services/asyncStorageService";
+import { navigate } from "expo-router/build/global-state/routing";
 
 const register = () => {
   const [input, setInput] = useState<registerFields>({
@@ -17,6 +20,30 @@ const register = () => {
     name: "",
     password: "",
   });
+
+  const submit = () => {
+    if (
+      input.name.length > 0 &&
+      input.email.endsWith("@gmail.com") &&
+      input.email.length > 10 &&
+      input.password.length > 7
+    ) {
+      const token = user_service_functions.registerUser(
+        input.email,
+        input.name,
+        input.password
+      );
+
+      if (token != null) {
+        Toast.success("Usuario registrado exitosamente");
+        router.navigate("user-management/login");
+      } else {
+        Toast.error("ERROR: algo salió mal.");
+      }
+    } else {
+      Toast.error("ERROR: algo salió mal.");
+    }
+  };
 
   return (
     <ImageBackground source={require("../../assets/beachGif.gif")}>
@@ -59,7 +86,7 @@ const register = () => {
               </View>
             </View>
             <View style={styles.buttonBox}>
-              <Button title="Enviar"></Button>
+              <Button title="Enviar" onPress={() => submit()}></Button>
               <Link
                 href="user-management/login"
                 style={styles.backToLoginButton}
