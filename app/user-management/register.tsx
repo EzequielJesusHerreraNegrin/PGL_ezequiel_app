@@ -1,18 +1,16 @@
+import { Link, router } from "expo-router";
 import React, { useState } from "react";
 import {
   Button,
   ImageBackground,
+  StyleSheet,
   Text,
   TextInput,
   View,
-  StyleSheet,
 } from "react-native";
 import ToastManager, { Toast } from "toastify-react-native";
-import { LoginFields, registerFields } from "../../types/AppTypes";
-import { Link, Redirect, router } from "expo-router";
 import { user_service_functions } from "../../services/user-service";
-import { storage_functions } from "../../services/asyncStorageService";
-import { navigate } from "expo-router/build/global-state/routing";
+import { registerFields } from "../../types/AppTypes";
 
 const register = () => {
   const [input, setInput] = useState<registerFields>({
@@ -36,14 +34,21 @@ const register = () => {
 
       if (token != null) {
         Toast.success("Usuario registrado exitosamente");
-        router.navigate("user-management/login");
+        setTimeout(() => router.navigate("user-management/login"), 1000);
       } else {
         Toast.error("ERROR: algo salió mal.");
       }
     } else {
-      Toast.error("ERROR: algo salió mal.");
+      console.log(
+        input.email.endsWith("@gmail.com"),
+        input.email.length > 10,
+        input.password.length > 7
+      );
+      Toast.error("ERROR: valores no contemplados.");
     }
   };
+
+  //AsyncStorage.removeItem(storage_functions.KEY.register, () => console.log("eliminado"))
 
   return (
     <ImageBackground source={require("../../assets/beachGif.gif")}>
@@ -59,7 +64,9 @@ const register = () => {
                   placeholder="ejemplo@gmail.com"
                   keyboardType="email-address"
                   value={input.email}
-                  onChangeText={(text) => setInput({ ...input, email: text })}
+                  onChangeText={(text) =>
+                    setInput({ ...input, email: text.trim() })
+                  }
                   style={styles.intputField}
                 ></TextInput>
               </View>

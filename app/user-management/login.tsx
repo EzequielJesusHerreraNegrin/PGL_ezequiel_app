@@ -26,10 +26,11 @@ const login = () => {
       input.password.length > 7
     ) {
       const token = user_service_functions.logUser(input.email, input.password);
+      console.log(token);
       if (token != null) {
         storage_functions.save(storage_functions.KEY.register, token);
         Toast.success("Inicio de sesión exitoso.");
-        router.navigate("/welcome");
+        setTimeout(() => router.navigate("/welcome"), 1000);
       } else {
         Toast.error("Usuario no registrado.");
       }
@@ -69,7 +70,18 @@ const login = () => {
                 ></TextInput>
               </View>
             </View>
-            <Button title="Enviar" onPress={() => handleSubmit()}></Button>
+            <Button
+              title="Enviar"
+              onPress={
+                () => handleSubmit()
+                /* {
+                  storage_functions.remove(storage_functions.KEY.register);
+                  console.log(
+                    storage_functions.get(storage_functions.KEY.register)
+                  );
+                } */
+              }
+            ></Button>
           </View>
           <View style={styles.registerOptionBox}>
             <Text style={styles.registerText}>¿No te has registrado?</Text>

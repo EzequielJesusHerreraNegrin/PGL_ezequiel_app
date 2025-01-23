@@ -4,8 +4,11 @@ const registerUser = async (
   userPassword: String
 ): Promise<String | null> => {
   try {
-    const response = await fetch("192.168.0.135:5000/auth/register", {
+    const response = await fetch("http://192.168.0.153:5000/auth/register", {
       method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
       body: JSON.stringify({
         fullname: userName,
         email: userEmail,
@@ -13,11 +16,12 @@ const registerUser = async (
       }),
     });
 
+    console.log(response.status);
     if (response.status == 201) {
       return response.status.toString();
     }
   } catch (error) {
-    console.error(error);
+    console.error("Petó la apiS", error);
   }
 
   return null;
@@ -28,14 +32,18 @@ const logUser = async (
   userPassword: String
 ): Promise<String | null> => {
   try {
-    const response = await fetch("192.168.0.135:5000/auth/login", {
+    const response = await fetch("http://192.168.0.153:5000/auth/login", {
       method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
       body: JSON.stringify({
         email: userEmail,
         pswd: userPassword,
       }),
     });
 
+    console.log("token: " + response.json.toString());
     return response.json.toString();
   } catch (error) {
     console.error(error);
