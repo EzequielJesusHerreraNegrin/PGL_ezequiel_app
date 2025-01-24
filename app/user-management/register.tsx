@@ -37,7 +37,7 @@ const register = () => {
         if (value != null) {
           console.log("Desde el register: " + value);
           Toast.success("Usuario registrado exitosamente");
-          setTimeout(() => router.navigate("user-management/login"), 2000);
+          setTimeout(() => router.navigate("user-management/login"), 2500);
         } else {
           Toast.error("ERROR: ya existe un usuario con esos datos.");
         }

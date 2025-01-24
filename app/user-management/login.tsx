@@ -34,7 +34,7 @@ const login = () => {
           console.log("login" + value);
           storage_functions.save(storage_functions.KEY.register, value);
           Toast.success("Inicio de sesión exitoso.");
-          setTimeout(() => router.navigate("/welcome"), 1000);
+          setTimeout(() => router.navigate("/welcome"), 2500);
         } else {
           Toast.error("Usuario no registrado.");
         }

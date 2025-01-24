@@ -16,12 +16,11 @@ const registerUser = async (
     }),
   });
 
-  /* if (response.status == 201) {
-    console.log(response.json());
-    return response.status.toString();
-  } */
-
-  return response.json();
+  if (response.status == 201) {
+    return response.json();
+  } else {
+    return null;
+  }
 };
 
 const logUser = async (
