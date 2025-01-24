@@ -15,30 +15,37 @@ import { storage_functions } from "../../services/asyncStorageService";
 
 const login = () => {
   const [input, setInput] = useState<LoginFields>({
-    email: "",
-    password: "",
+    email: "eze@gmail.com",
+    password: "12345678",
   });
+
+  let [isLoadding, setIsloadding] = useState<boolean>(false);
 
   const handleSubmit = () => {
     if (
       input.email.endsWith("@gmail.com") &&
       input.email.length > 10 &&
-      input.password.length > 7
+      input.password.length >= 8
     ) {
       const token = user_service_functions.logUser(input.email, input.password);
-      console.log(token);
-      if (token != null) {
-        storage_functions.save(storage_functions.KEY.register, token);
-        Toast.success("Inicio de sesión exitoso.");
-        setTimeout(() => router.navigate("/welcome"), 1000);
-      } else {
-        Toast.error("Usuario no registrado.");
-      }
+      setIsloadding(true);
+      token.then((value) => {
+        if (value != null) {
+          console.log("login" + value);
+          storage_functions.save(storage_functions.KEY.register, value);
+          Toast.success("Inicio de sesión exitoso.");
+          setTimeout(() => router.navigate("/welcome"), 1000);
+        } else {
+          Toast.error("Usuario no registrado.");
+        }
+      });
+      setIsloadding(!true);
     } else {
       Toast.error("Credenciales incorrectas.");
     }
   };
-
+  //Arturo@gmail.com
+  //eze@gmail.com
   return (
     <ImageBackground source={require("../../assets/beachGif.gif")}>
       <ToastManager textStyle={styles.toastContainer}></ToastManager>
@@ -71,7 +78,8 @@ const login = () => {
               </View>
             </View>
             <Button
-              title="Enviar"
+              title={isLoadding ? "Espere..." : "Enviar"}
+              disabled={isLoadding}
               onPress={
                 () => handleSubmit()
                 /* {

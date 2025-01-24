@@ -32,18 +32,17 @@ const register = () => {
         input.password
       );
 
-      if (token != null) {
-        Toast.success("Usuario registrado exitosamente");
-        setTimeout(() => router.navigate("user-management/login"), 1000);
-      } else {
-        Toast.error("ERROR: algo salió mal.");
-      }
+      console.log("otros: A" + token);
+      token.then((value) => {
+        if (value != null) {
+          console.log("Desde el register: " + value);
+          Toast.success("Usuario registrado exitosamente");
+          setTimeout(() => router.navigate("user-management/login"), 2000);
+        } else {
+          Toast.error("ERROR: ya existe un usuario con esos datos.");
+        }
+      });
     } else {
-      console.log(
-        input.email.endsWith("@gmail.com"),
-        input.email.length > 10,
-        input.password.length > 7
-      );
       Toast.error("ERROR: valores no contemplados.");
     }
   };
