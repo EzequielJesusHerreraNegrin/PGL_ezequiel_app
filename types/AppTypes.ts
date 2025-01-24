@@ -1,5 +1,3 @@
-import uuid from "react-native-uuid";
-
 export type FoodItem = {
   id: string;
   name: string;
@@ -11,5 +9,11 @@ export type FoodItem = {
 
 export type LoginFields = {
   email: string;
+  password: string;
+};
+
+export type registerFields = {
+  email: string;
+  name: string;
   password: string;
 };
