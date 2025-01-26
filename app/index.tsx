@@ -1,8 +1,25 @@
-import { Redirect } from "expo-router";
-import React from "react";
+import { router } from "expo-router";
+import { useEffect } from "react";
+import { storage_functions } from "../services/asyncStorageService";
 
 function AppPage() {
-  return <Redirect href="user-management/login"></Redirect>;
+  useEffect(() => {
+    const checkStorage = async () => {
+      storage_functions.get(storage_functions.KEY.register).then((value) => {
+        if (value === null) {
+          console.log("No hay token");
+          router.navigate("user-management/login");
+        } else {
+          console.log("hay token");
+          router.navigate("/welcome");
+        }
+      });
+    };
+
+    checkStorage();
+  }, [storage_functions.get(storage_functions.KEY.register)]);
+
+  return null;
 }
 
 export default AppPage;
