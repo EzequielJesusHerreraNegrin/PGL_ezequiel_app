@@ -31,11 +31,9 @@ const register = () => {
         input.name,
         input.password
       );
-
-      console.log("otros: A" + token);
       token.then((value) => {
+        console.log("si");
         if (value != null) {
-          console.log("Desde el register: " + value);
           Toast.success("Usuario registrado exitosamente");
           setTimeout(() => router.navigate("user-management/login"), 2500);
         } else {
