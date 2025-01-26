@@ -3,7 +3,7 @@ const registerUser = async (
   userName: String,
   userPassword: String
 ) => {
-  const response = await fetch("http://192.168.0.1:5000/auth/register", {
+  const response = await fetch("http://192.168.0.174:5000/auth/register", {
     method: "POST",
     headers: {
       Accept: "application/json",

@@ -19,8 +19,6 @@ const login = () => {
     password: "",
   });
 
-  let [isLoadding, setIsloadding] = useState<boolean>(false);
-
   const handleSubmit = () => {
     if (
       input.email.endsWith("@gmail.com") &&
@@ -28,7 +26,6 @@ const login = () => {
       input.password.length >= 8
     ) {
       const token = user_service_functions.logUser(input.email, input.password);
-      setIsloadding(true);
       token.then((value) => {
         if (value != null) {
           storage_functions.save(storage_functions.KEY.register, value);
@@ -38,13 +35,11 @@ const login = () => {
           Toast.error("Usuario no registrado.");
         }
       });
-      setIsloadding(!true);
     } else {
       Toast.error("Credenciales incorrectas.");
     }
   };
-  //Arturo@gmail.com
-  //eze@gmail.com
+
   return (
     <ImageBackground source={require("../../assets/beachGif.gif")}>
       <ToastManager textStyle={styles.toastContainer}></ToastManager>
@@ -76,11 +71,7 @@ const login = () => {
                 ></TextInput>
               </View>
             </View>
-            <Button
-              title={isLoadding ? "Espere..." : "Enviar"}
-              disabled={isLoadding}
-              onPress={() => handleSubmit()}
-            ></Button>
+            <Button title={"Enviar"} onPress={() => handleSubmit()}></Button>
           </View>
           <View style={styles.registerOptionBox}>
             <Text style={styles.registerText}>¿No te has registrado?</Text>
