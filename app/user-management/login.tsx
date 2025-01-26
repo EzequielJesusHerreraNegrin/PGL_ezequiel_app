@@ -80,15 +80,7 @@ const login = () => {
             <Button
               title={isLoadding ? "Espere..." : "Enviar"}
               disabled={isLoadding}
-              onPress={
-                () => handleSubmit()
-                /* {
-                  storage_functions.remove(storage_functions.KEY.register);
-                  console.log(
-                    storage_functions.get(storage_functions.KEY.register)
-                  );
-                } */
-              }
+              onPress={() => handleSubmit()}
             ></Button>
           </View>
           <View style={styles.registerOptionBox}>
