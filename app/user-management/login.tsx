@@ -15,8 +15,8 @@ import { storage_functions } from "../../services/asyncStorageService";
 
 const login = () => {
   const [input, setInput] = useState<LoginFields>({
-    email: "eze@gmail.com",
-    password: "12345678",
+    email: "",
+    password: "",
   });
 
   let [isLoadding, setIsloadding] = useState<boolean>(false);
@@ -31,7 +31,6 @@ const login = () => {
       setIsloadding(true);
       token.then((value) => {
         if (value != null) {
-          console.log("login" + value);
           storage_functions.save(storage_functions.KEY.register, value);
           Toast.success("Inicio de sesión exitoso.");
           setTimeout(() => router.navigate("/welcome"), 2500);

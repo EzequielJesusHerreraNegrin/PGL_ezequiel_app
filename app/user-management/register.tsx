@@ -47,8 +47,6 @@ const register = () => {
     }
   };
 
-  //AsyncStorage.removeItem(storage_functions.KEY.register, () => console.log("eliminado"))
-
   return (
     <ImageBackground source={require("../../assets/beachGif.gif")}>
       <ToastManager textStyle={styles.toastContainer}></ToastManager>
