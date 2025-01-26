@@ -7,10 +7,8 @@ function AppPage() {
     const checkStorage = async () => {
       storage_functions.get(storage_functions.KEY.register).then((value) => {
         if (value === null) {
-          console.log("No hay token");
           router.navigate("user-management/login");
         } else {
-          console.log("hay token");
           router.navigate("/welcome");
         }
       });
