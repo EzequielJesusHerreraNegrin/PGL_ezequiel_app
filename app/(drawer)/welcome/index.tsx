@@ -15,7 +15,7 @@ const handleLogOut = async () => {
   storage_functions.remove(storage_functions.KEY.register).then(() => {
     Toast.success("Serrando sesión...");
     setTimeout(() => {
-      router.navigate("user-management/login");
+      router.navigate("/");
     }, 2500);
   });
 };
