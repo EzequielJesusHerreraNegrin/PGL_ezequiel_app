@@ -7,9 +7,11 @@ import { storage_functions } from "../../services/Storage_functions";
 
 type CameraProps = {
   setLastPicture: Function;
+  setShowCamera: Function;
+  showCamera: Boolean;
 };
 
-const Camera = ({ setLastPicture }: CameraProps) => {
+const Camera = ({ setLastPicture, setShowCamera, showCamera }: CameraProps) => {
   const cameraRef = useRef<CameraView>(null);
   const [permission, requestPermission] = useCameraPermissions();
 
@@ -58,7 +60,7 @@ const Camera = ({ setLastPicture }: CameraProps) => {
   };
 
   return (
-    <Modal>
+    <Modal style={styles.camera}>
       <CameraView
         enableTorch={flash}
         style={styles.camera}
@@ -80,6 +82,12 @@ const Camera = ({ setLastPicture }: CameraProps) => {
           </Pressable>
           <Pressable style={styles.iconButton} onPress={toggleFacing}>
             <Ionicons name="camera-reverse" size={32} color="black" />
+          </Pressable>
+          <Pressable
+            style={styles.iconButton}
+            onPress={() => setShowCamera(!showCamera)}
+          >
+            <Ionicons name="apps" size={32} color="black" />
           </Pressable>
         </View>
       </CameraView>

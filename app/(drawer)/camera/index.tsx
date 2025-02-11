@@ -1,4 +1,4 @@
-import { View, Image, StyleSheet, Button } from "react-native";
+import { View, Image, StyleSheet, Button, Pressable } from "react-native";
 import React, { useState } from "react";
 import Camera from "../../../components/camera/Camera";
 import Ionicons from "@expo/vector-icons/Ionicons";
@@ -6,21 +6,36 @@ import Ionicons from "@expo/vector-icons/Ionicons";
 const index = () => {
   const [lastPicture, setLastPicture] = useState<string>("");
   const [gallery, setGallery] = useState<[]>([]);
+  const [showCamera, setShowCamera] = useState<boolean>(true);
 
   return (
     <View style={styles.pageContainer}>
-      <View style={styles.lastImageContainer}>
-        {lastPicture == "" ? null : (
-          <Image
-            style={styles.lastImage}
-            source={{ uri: `data:image/jpg;base64,${lastPicture}` }}
+      {showCamera == true ? (
+        <View>
+          <View style={styles.lastImageContainer}>
+            {lastPicture == "" ? null : (
+              <Image
+                style={styles.lastImage}
+                source={{ uri: `data:image/jpg;base64,${lastPicture}` }}
+              />
+            )}
+          </View>
+          <Camera
+            setLastPicture={setLastPicture}
+            setShowCamera={setShowCamera}
+            showCamera={showCamera}
           />
-        )}
-      </View>
-      {/* <View style={styles.buttonContainer}>
-        <Button title=""></Button>
-      </View> */}
-      <Camera setLastPicture={setLastPicture} />
+        </View>
+      ) : (
+        <View>
+          <Pressable
+            style={styles.buttonContainer}
+            onPress={() => setShowCamera(!showCamera)}
+          >
+            <Ionicons name="apps" size={32} color="black" />
+          </Pressable>
+        </View>
+      )}
     </View>
   );
 };
