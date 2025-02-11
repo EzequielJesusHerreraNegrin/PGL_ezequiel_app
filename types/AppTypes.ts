@@ -17,3 +17,13 @@ export type registerFields = {
   name: string;
   password: string;
 };
+
+export interface ApiResponse {
+  message: string;
+  object?: {
+    email: string;
+    userId: number;
+    token: string;
+  };
+  statusCode: number;
+}

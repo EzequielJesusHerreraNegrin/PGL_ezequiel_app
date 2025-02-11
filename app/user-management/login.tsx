@@ -11,7 +11,7 @@ import { LoginFields } from "../../types/AppTypes";
 import ToastManager, { Toast } from "toastify-react-native";
 import { Link, router } from "expo-router";
 import { user_service_functions } from "../../services/user-service";
-import { storage_functions } from "../../services/asyncStorageService";
+import { storage_functions } from "../../services/Storage_functions";
 
 const login = () => {
   const [input, setInput] = useState<LoginFields>({
