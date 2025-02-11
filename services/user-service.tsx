@@ -78,8 +78,7 @@ const savedPhoto = async (
     }),
   });
 
-  console.log(response);
-  console.log(response._bodyInit._data.__collector);
+  //console.log(response._bodyInit._data.__collector);
   console.log(`Api: ${response.status}`);
   console.log(`Api: ${token}`);
   if (response.status == 201) {

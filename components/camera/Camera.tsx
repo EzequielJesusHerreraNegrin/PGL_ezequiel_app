@@ -1,4 +1,4 @@
-import { Button, Pressable, StyleSheet, Text, View } from "react-native";
+import { Button, Modal, Pressable, StyleSheet, Text, View } from "react-native";
 import React, { useRef, useState } from "react";
 import { CameraType, CameraView, useCameraPermissions } from "expo-camera";
 import Ionicons from "@expo/vector-icons/Ionicons";
@@ -34,10 +34,12 @@ const Camera = ({ setLastPicture }: CameraProps) => {
     }
 
     if (picture!.base64) {
-      await user_service_functions
-        .savedPhoto(mytoken, picture!.height, picture!.width, picture!.base64)
-        .then((response) => console.log(response))
-        .catch((error) => console.log(error));
+      await user_service_functions.savedPhoto(
+        mytoken,
+        picture!.height,
+        picture!.width,
+        picture!.base64
+      );
     }
 
     if (picture != null && picture.base64 != null) {
@@ -56,30 +58,32 @@ const Camera = ({ setLastPicture }: CameraProps) => {
   };
 
   return (
-    <CameraView
-      enableTorch={flash}
-      style={styles.camera}
-      facing={facing}
-      mode="picture"
-      ref={cameraRef}
-      onCameraReady={() => console.log("Camera ready!")}
-    >
-      <View style={styles.buttonContainer}>
-        <Pressable style={styles.iconButton} onPress={toggleFlash}>
-          <Ionicons
-            name={flash ? "flash-off" : "flash"}
-            size={32}
-            color="black"
-          />
-        </Pressable>
-        <Pressable style={styles.pictureButton} onPress={takePicture}>
-          <Text> </Text>
-        </Pressable>
-        <Pressable style={styles.iconButton} onPress={toggleFacing}>
-          <Ionicons name="camera-reverse" size={32} color="black" />
-        </Pressable>
-      </View>
-    </CameraView>
+    <Modal>
+      <CameraView
+        enableTorch={flash}
+        style={styles.camera}
+        facing={facing}
+        mode="picture"
+        ref={cameraRef}
+        onCameraReady={() => console.log("Camera ready!")}
+      >
+        <View style={styles.buttonContainer}>
+          <Pressable style={styles.iconButton} onPress={toggleFlash}>
+            <Ionicons
+              name={flash ? "flash-off" : "flash"}
+              size={32}
+              color="black"
+            />
+          </Pressable>
+          <Pressable style={styles.pictureButton} onPress={takePicture}>
+            <Text> </Text>
+          </Pressable>
+          <Pressable style={styles.iconButton} onPress={toggleFacing}>
+            <Ionicons name="camera-reverse" size={32} color="black" />
+          </Pressable>
+        </View>
+      </CameraView>
+    </Modal>
   );
 };
 
