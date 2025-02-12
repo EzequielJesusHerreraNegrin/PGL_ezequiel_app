@@ -7,7 +7,7 @@ import {
   ImageBackground,
   Button,
 } from "react-native";
-import { storage_functions } from "../../../services/asyncStorageService";
+import { storage_functions } from "../../../services/Storage_functions";
 import ToastManager, { Toast } from "toastify-react-native";
 import { router } from "expo-router";
 

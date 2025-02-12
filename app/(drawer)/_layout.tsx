@@ -26,6 +26,13 @@ export const AppLayout = () => {
             title: "Mi compra",
           }}
         />
+        <Drawer.Screen
+          name="camera/index"
+          options={{
+            drawerLabel: "My photos",
+            title: "My photos",
+          }}
+        />
       </Drawer>
     </GestureHandlerRootView>
   );

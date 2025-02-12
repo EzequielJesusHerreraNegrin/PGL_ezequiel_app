@@ -9,7 +9,7 @@ import {
   View,
 } from "react-native";
 import ToastManager, { Toast } from "toastify-react-native";
-import { user_service_functions } from "../../services/user-service";
+import { user_service } from "../../services/user-service";
 import { registerFields } from "../../types/AppTypes";
 
 const register = () => {
@@ -26,7 +26,7 @@ const register = () => {
       input.email.length > 10 &&
       input.password.length > 7
     ) {
-      const token = user_service_functions.registerUser(
+      const token = user_service.registerUser(
         input.email,
         input.name,
         input.password

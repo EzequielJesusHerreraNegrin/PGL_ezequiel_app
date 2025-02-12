@@ -1,6 +1,6 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
-const KEY = { register: "user-jwt" };
+const KEY = { register: "user-jwt", cameraPhtons: "user-jwt-photos" };
 
 async function save<T>(key: string, value: T): Promise<void> {
   try {
