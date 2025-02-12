@@ -10,7 +10,7 @@ import React, { useState } from "react";
 import { LoginFields } from "../../types/AppTypes";
 import ToastManager, { Toast } from "toastify-react-native";
 import { Link, router } from "expo-router";
-import { user_service_functions } from "../../services/user-service";
+import { user_service } from "../../services/user-service";
 import { storage_functions } from "../../services/Storage_functions";
 
 const login = () => {
@@ -25,7 +25,7 @@ const login = () => {
       input.email.length > 10 &&
       input.password.length >= 8
     ) {
-      const token = user_service_functions.logUser(input.email, input.password);
+      const token = user_service.logUser(input.email, input.password);
       token.then((value) => {
         if (value != null) {
           storage_functions.save(storage_functions.KEY.register, value);

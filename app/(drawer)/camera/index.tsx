@@ -6,13 +6,15 @@ import {
   Pressable,
   ScrollView,
   Text,
+  Modal,
 } from "react-native";
 import React, { useEffect, useState } from "react";
 import Camera from "../../../components/camera/Camera";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import { FlatList } from "react-native-gesture-handler";
-import { user_service_functions } from "../../../services/user-service";
+import { user_service } from "../../../services/user-service";
 import { storage_functions } from "../../../services/Storage_functions";
+import { camera_service } from "../../../services/camera-service";
 
 type Photo = {
   id: number;
@@ -25,29 +27,15 @@ const index = () => {
   const [lastPicture, setLastPicture] = useState<string>("");
   const [gallery, setGallery] = useState<Photo[]>([]);
   const [showCamera, setShowCamera] = useState<boolean>(false);
-  const [loading, setLoading] = useState<boolean>(false);
-
-  /* useEffect(() => {
-    const retrievePhotos = async () => {
-      const token = await storage_functions.get(storage_functions.KEY.register);
-      let photoList = await user_service_functions.getAllPhotos(token);
-      console.log(`camera: ${photoList}`);
-      if (!photoList) {
-        setLoading(true);
-      } else {
-        setLoading(false);
-      }
-      setGallery(photoList);
-      console.log(gallery.forEach((img) => img));
-    };
-
-    retrievePhotos();
-  }, [gallery]); */
+  const [zoom, setzoom] = useState<any | null>(null);
 
   useEffect(() => {
     const checkGalery = async () => {
       const token = await storage_functions.get(storage_functions.KEY.register);
-      const fetchedPictures = await user_service_functions.getAllPhotos(token);
+      const fetchedPictures = await camera_service.getAllPhotos(token);
+      if (fetchedPictures == null) {
+        alert("Algo no va bien, reinicia la sesión!!.");
+      }
       setGallery(fetchedPictures);
     };
 
@@ -73,28 +61,30 @@ const index = () => {
           />
         </View>
       ) : (
-        <View>
-          <ScrollView showsVerticalScrollIndicator={false}>
-            {gallery.length > 0 ? (
-              gallery.map((item) => (
+        <>
+          <FlatList
+            data={gallery}
+            scrollEnabled={true}
+            keyExtractor={(item) => item.id.toString()}
+            numColumns={3}
+            ListEmptyComponent={
+              <View style={styles.messageContainer}>
+                <Text style={styles.message}>No hay imágenes</Text>
+              </View>
+            }
+            contentContainerStyle={styles.galleryContainer}
+            renderItem={({ item }) => (
+              <View style={styles.imageWrapper}>
                 <Image
-                  key={item.id}
-                  style={{ width: 200, height: 200, margin: 10 }}
-                  source={{ uri: `data:image/jpg;base64,${item.encodedData}` }}
+                  source={{
+                    uri: `data:image/jpg;base64,${item.encodedData}`,
+                  }}
+                  style={styles.image}
                 />
-              ))
-            ) : (
-              <Text
-                style={{
-                  textAlign: "center",
-                  fontWeight: 900,
-                }}
-              >
-                La Lista está vacía
-              </Text>
+              </View>
             )}
-          </ScrollView>
-          <View style={""}>
+          />
+          <View>
             <Pressable
               style={styles.buttonContainer}
               onPress={() => setShowCamera(!showCamera)}
@@ -102,7 +92,7 @@ const index = () => {
               <Ionicons name="apps" size={32} color="black" />
             </Pressable>
           </View>
-        </View>
+        </>
       )}
     </View>
   );
@@ -116,8 +106,15 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   message: {
-    textAlign: "center",
+    justifyContent: "center",
+    alignContent: "center",
     paddingBottom: 10,
+  },
+  messageContainer: {
+    width: "100%",
+    height: "100%",
+    alignContent: "center",
+    margin: 150,
   },
   camera: {
     height: "100%",
@@ -149,5 +146,22 @@ const styles = StyleSheet.create({
   lastImage: {
     width: 48,
     height: 48,
+  },
+  galleryContainer: {
+    flexDirection: "row",
+    flexWrap: "wrap",
+    flexShrink: 3,
+    justifyContent: "space-between",
+  },
+  imageWrapper: {
+    width: "32.5%",
+    aspectRatio: 1,
+    marginBottom: 10,
+  },
+  image: {
+    width: 115,
+    height: 115,
+    borderRadius: 8,
+    margin: 10,
   },
 });

@@ -2,8 +2,8 @@ import { Button, Modal, Pressable, StyleSheet, Text, View } from "react-native";
 import React, { useRef, useState } from "react";
 import { CameraType, CameraView, useCameraPermissions } from "expo-camera";
 import Ionicons from "@expo/vector-icons/Ionicons";
-import { user_service_functions } from "../../services/user-service";
 import { storage_functions } from "../../services/Storage_functions";
+import { camera_service } from "../../services/camera-service";
 
 type CameraProps = {
   setLastPicture: Function;
@@ -36,7 +36,7 @@ const Camera = ({ setLastPicture, setShowCamera, showCamera }: CameraProps) => {
     }
 
     if (picture!.base64) {
-      await user_service_functions.savedPhoto(
+      await camera_service.savedPhoto(
         mytoken,
         picture!.height,
         picture!.width,
@@ -46,6 +46,7 @@ const Camera = ({ setLastPicture, setShowCamera, showCamera }: CameraProps) => {
 
     if (picture != null && picture.base64 != null) {
       setLastPicture(picture.base64);
+      setShowCamera(!showCamera);
     } else {
       alert("Ocurrió un error sacando una foto.");
     }
@@ -77,7 +78,12 @@ const Camera = ({ setLastPicture, setShowCamera, showCamera }: CameraProps) => {
               color="black"
             />
           </Pressable>
-          <Pressable style={styles.pictureButton} onPress={takePicture}>
+          <Pressable
+            style={styles.pictureButton}
+            onPress={() => {
+              takePicture;
+            }}
+          >
             <Text> </Text>
           </Pressable>
           <Pressable style={styles.iconButton} onPress={toggleFacing}>
